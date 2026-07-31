@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Arts Operations Partner</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F7F1EC;
+    --sand:#EBE0D6;
+    --sand-deep:#DCCBBA;
+    --olive:#3E4A34;
+    --olive-soft:#6E7860;
+    --terracotta:#9C5B5A;
+    --ink:#2E2A28;
+    --ink-soft:#55493F;
+    --line:#D9C9BA;
+
+    /* type scale — matches the landing page */
+    --t-micro:11.5px;
+    --t-small:13.5px;
+    --t-body:16.5px;
+    --t-lead:19px;
+    --t-h3:21px;
+    --t-statement:24px;
+    --t-h2:30px;
+    --t-h1:clamp(34px,4.4vw,48px);
+
+    /* spacing scale — 8px base, so vertical rhythm stays consistent */
+    --s-1:8px;  --s-2:16px; --s-3:24px; --s-4:32px;
+    --s-5:40px; --s-6:56px; --s-7:72px; --s-8:96px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost',sans-serif;font-weight:300;
+    color:var(--ink);background:var(--bone);
+    line-height:1.6;font-size:var(--t-body);-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Marcellus',serif;font-weight:400;line-height:1.25;}
+  a{color:inherit;}
+  .shell{max-width:900px;margin:0 auto;padding:0 40px;}
+
+  .nav{
+    position:sticky;top:0;z-index:60;height:72px;
+    background:rgba(251,248,243,0.86);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .shell{height:100%;display:flex;align-items:center;justify-content:space-between;}
+  .mark{display:flex;align-items:center;gap:11px;text-decoration:none;}
+  .mark .wordmark{
+    font-family:'Marcellus',serif;font-size:16px;
+    letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--olive);transition:color .25s;
+  }
+  .mark:hover .wordmark{color:var(--terracotta);}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:var(--t-small);letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .25s;}
+  .nav-links a:hover{color:var(--terracotta);}
+  .nav-links a.nav-cta{
+    color:var(--olive);border:1px solid var(--line);padding:9px 20px;border-radius:999px;
+    transition:background .25s,color .25s,border-color .25s;
+  }
+  .nav-links a.nav-cta:hover{background:var(--olive);color:var(--bone);border-color:var(--olive);}
+
+  .head{padding:var(--s-8) 0 0;}
+  .eyebrow{font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;color:var(--terracotta);margin-bottom:var(--s-3);}
+  .head h1{font-size:var(--t-h1);margin-bottom:var(--s-3);max-width:16ch;}
+  .head .intro{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
+
+  .portrait-row{display:grid;grid-template-columns:0.8fr 1.2fr;gap:var(--s-6);align-items:start;padding:var(--s-7) 0 0;}
+  .arch{
+    width:100%;aspect-ratio:3/4;
+    border-radius:50% 50% 8px 8px / 42% 42% 4px 4px;
+    background:var(--sand);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--olive-soft);font-size:var(--t-micro);letter-spacing:0.16em;text-transform:uppercase;
+    overflow:hidden;
+  }
+  .arch img{width:100%;height:100%;object-fit:cover;}
+  .portrait-row p{color:var(--ink-soft);}
+  .portrait-row p + p{margin-top:var(--s-3);}
+  .name{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
+
+  .edu-mini{margin-top:var(--s-5);}
+  .edu-mini .lab{
+    font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
+    color:var(--olive-soft);margin-bottom:var(--s-1);
+  }
+  .edu-mini p{font-size:var(--t-small);color:var(--ink-soft);line-height:1.6;}
+  .edu-mini p + p{margin-top:var(--s-2);}
+  .edu-mini strong{font-weight:400;color:var(--olive);}
+
+  section{padding:var(--s-8) 0;}
+  .beliefs{background:var(--sand);}
+  .beliefs .inner{max-width:62ch;}
+  .beliefs h2{font-size:var(--t-h2);color:var(--olive);margin-bottom:var(--s-4);}
+  .beliefs p{color:var(--ink-soft);font-size:var(--t-body);}
+  .beliefs p + p{margin-top:var(--s-3);}
+
+  .closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-8) 0;}
+  .closing h2{font-size:var(--t-h2);margin-bottom:var(--s-2);}
+  .closing p{color:#C7CEBA;max-width:46ch;margin:0 auto var(--s-5);}
+  .closing a.mail{
+    font-family:'Marcellus',serif;font-size:var(--t-h3);color:var(--bone);text-decoration:none;
+    border-bottom:1px solid rgba(251,248,243,0.4);padding-bottom:6px;transition:border-color .25s;
+  }
+  .closing a.mail:hover{border-color:var(--bone);}
+
+  footer a{color:var(--olive-soft);text-decoration:none;}
+  footer a:hover{color:var(--terracotta);}
+  footer{padding:var(--s-4) 0 var(--s-6);display:flex;justify-content:space-between;font-size:var(--t-small);color:var(--olive-soft);}
+
+  @media (max-width:760px){
+    .shell{padding:0 22px;}
+    .portrait-row{grid-template-columns:1fr;gap:var(--s-5);}
+    .arch{max-width:260px;}
+    footer{flex-direction:column;gap:8px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="shell">
+    <a class="mark" href="index.html" aria-label="Home">
+      <span class="wordmark">ArteVia</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="head">
+    <div class="eyebrow">About</div>
+    <h1>I came to operations from the stage.</h1>
+    <p class="intro">Not the other way round.</p>
+  </div>
+
+  <div class="portrait-row">
+    <div class="arch"><img src="portrait.jpg" alt="Alina Zheng" loading="lazy"></div>
+    <div>
+      <h2 class="name">Alina Zheng</h2>
+      <p>A classical pianist, an educator, and an arts coordinator. I've spent my whole life in this industry — on stage, backstage, and behind the desk.</p>
+      <p>From liaising with artists, venues and partners to running competitions and concerts: securing venues, arranging instrument hire and staging, building the schedules, and keeping the invoicing and records straight underneath it all.</p>
+      <p>I know what an artist needs, what their pain points are, and what falls apart in a programme — because I've been on that path myself.</p>
+      <p>Officially, I look after the admin, the logistics and the systems. Unofficially, I understand what this career actually asks of you — because I'm still living it too.</p>
+
+      <div class="edu-mini">
+        <div class="lab">Education</div>
+        <p><strong>Master of Music, Distinction</strong><br>Royal Welsh College of Music and Drama</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<section class="beliefs">
+  <div class="shell">
+    <div class="inner">
+      <h2>How I like to work</h2>
+      <p>As a minimalist, I believe less is more, so I approach systems and workflows the same way.</p>
+      <p>The best system isn't the one with the most features, or the one that looks most impressive in a demo. It's the one with every unnecessary step taken out, so it takes almost no effort to use. Tools are supposed to serve the people using them.</p>
+      <p>I'm not the sharpest technologist in the room. I'm the one who knows the arts industry inside out, and knows which tools actually help.</p>
+      <p>I take my cues from nature. Build an ecosystem properly — in work or in life — and it feeds itself: nothing needs forcing, and everything stays in balance.</p>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="shell">
+    <h2>Let's talk about your week.</h2>
+    <p>Based in the UK, working remotely — and on site when the event needs it.</p>
+    <a class="mail" href="mailto:hello@shiyuzheng.com">hello@shiyuzheng.com</a>
+  </div>
+</section>
+
+<div class="shell">
+  <footer>
+    <span>Arts Operations Partner · United Kingdom</span>
+    <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</span>
+  </footer>
+</div>
+
+</body>
+</html>

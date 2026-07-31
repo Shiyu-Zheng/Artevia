@@ -1,0 +1,41 @@
+name: Deploy to GitHub Pages
+
+on:
+  # every push to main publishes the site
+  push:
+    branches: [main]
+  # ...and you can trigger it by hand from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# let a running deploy finish rather than cancelling it half-published
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # only ./site is published — everything else in the repo stays private
+      - name: Upload site directory
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

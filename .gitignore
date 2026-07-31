@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# FUSE mount artefacts
+.fuse_hidden*
+
+# editors
+*.swp
+*~
+.vscode/
+.idea/
+
+# node, if it ever appears
+node_modules/
