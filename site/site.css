@@ -210,8 +210,6 @@ footer a:hover{color:var(--terracotta);}
   font-size:var(--t-h2);color:var(--olive);
   margin:0 auto var(--s-6);max-width:22ch;text-align:center;
 }
-.lede{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
-.lede + .lede{margin-top:20px;}
 
 .more{
   display:inline-block;margin-top:32px;
@@ -222,8 +220,8 @@ footer a:hover{color:var(--terracotta);}
 }
 .more:hover{color:var(--terracotta);border-color:var(--terracotta);}
 
-/* one musical phrase, split across the page — admin, then a rest */
-.bar-fig{display:block;width:100%;max-width:360px;height:auto;margin:0 auto var(--s-4);}
+/* the whole joke in one system: a key signature of admin, then a bar of rest */
+.bar-fig{display:block;width:100%;max-width:720px;height:auto;margin:0 auto;}
 .bar-fig .stv{stroke:var(--olive);stroke-width:1;opacity:.4;}
 .bar-fig .ink{stroke:var(--olive);stroke-width:1.5;}
 .bar-fig .clef{
@@ -231,15 +229,9 @@ footer a:hover{color:var(--terracotta);}
   stroke-linecap:round;stroke-linejoin:round;
 }
 .bar-fig .barline{stroke:var(--olive);stroke-width:1.4;opacity:.7;}
-.bar-fig .fclef{fill:var(--olive);stroke:var(--olive);}
 
-/* the problem, stated once, between hero and services */
-.statement{background:var(--sand);text-align:center;padding:var(--s-6) 0;}
-.statement blockquote{
-  font-family:'Marcellus',serif;font-size:var(--t-statement);
-  color:var(--olive-soft);line-height:1.5;
-  max-width:38ch;margin:0 auto;
-}
+/* the figure sits under the services heading, not in a section of its own */
+.bar-fig{margin-bottom:var(--s-7);}
 
 /* closing stance — the strongest line, given its own room */
 .stance{text-align:center;padding:var(--s-7) 0;}
@@ -250,10 +242,6 @@ footer a:hover{color:var(--terracotta);}
 .stance .more{margin-top:var(--s-4);}
 
 /* ---- package picker ---- */
-.pkg-intro{
-  text-align:center;color:var(--ink-soft);font-size:var(--t-body);
-  max-width:56ch;margin:calc(var(--s-4) * -1) auto var(--s-6);
-}
 .pkg-tabs{
   display:grid;grid-template-columns:minmax(210px,27%) 1fr;
   gap:var(--s-5);align-items:start;
@@ -284,7 +272,7 @@ footer a:hover{color:var(--terracotta);}
   transition:border-color .18s, transform .18s;
 }
 .pkg-tab:hover{
-  background:var(--sand);
+  background:var(--bone);
   border-color:var(--sand-deep);
   border-left-color:var(--olive-soft);
 }
@@ -300,7 +288,7 @@ footer a:hover{color:var(--terracotta);}
 .pkg-tab[aria-selected="true"] .tab-arrow{border-color:var(--bone);transform:rotate(45deg) translate(2px,-2px);}
 .pkg-tab:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
 
-.pkg-stage{background:var(--sand);border-radius:26px;}
+.pkg-stage{background:var(--bone);border-radius:26px;}
 .pkg-panel{padding:38px 42px 34px;}
 .pkg-panel:focus{outline:none;}
 .pkg-head{
@@ -320,7 +308,7 @@ footer a:hover{color:var(--terracotta);}
 .pkg-panel li{font-size:var(--t-body);color:var(--ink-soft);line-height:1.55;margin-bottom:9px;}
 .pkg-keep{
   margin-top:var(--s-4);padding-top:var(--s-3);
-  border-top:1px solid var(--sand-deep);
+  border-top:1px solid var(--line);
   font-size:var(--t-small);color:var(--ink-soft);line-height:1.55;
 }
 .pkg-keep strong{font-weight:400;color:var(--olive);}
@@ -335,27 +323,43 @@ footer a:hover{color:var(--terracotta);}
 }
 .pkg-more a:hover{color:var(--terracotta);border-color:var(--terracotta);}
 
-/* ongoing support — sits under the packages */
-.ongoing{
-  max-width:60ch;margin:var(--s-7) auto 0;
-  padding-top:var(--s-5);border-top:1px solid var(--line);
-  text-align:center;
-}
-.ongoing h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
-.ongoing p{font-size:var(--t-body);color:var(--ink-soft);}
 
-/* how it works */
-.paths{display:grid;grid-template-columns:1fr 1fr;}
-.path{padding:6px 46px 6px 0;}
-.path + .path{padding:6px 0 6px 46px;border-left:1px solid var(--line);}
-.path .num{font-family:'Marcellus',serif;font-size:var(--t-h2);color:var(--sand-deep);display:block;margin-bottom:10px;}
-.path h3{font-size:var(--t-h3);margin-bottom:12px;color:var(--olive);}
-.path p{color:var(--ink-soft);font-size:var(--t-body);}
-.then{
-  margin-top:var(--s-6);padding-top:var(--s-5);
-  border-top:1px solid var(--line);
-  font-size:var(--t-body);color:var(--ink-soft);max-width:60ch;
+/* ---- how it works: a flow, because the middle step is a fork ---- */
+.flow{max-width:780px;margin:0 auto;text-align:center;}
+
+.flow-node,
+.flow-branch{
+  background:var(--bone);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:var(--s-3) var(--s-4);
 }
+.flow-node h3,
+.flow-branch h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:6px;}
+.flow-node p,
+.flow-branch p{font-size:var(--t-body);color:var(--ink-soft);max-width:46ch;margin:0 auto;}
+
+/* vertical connector into every block after the first */
+.flow > * + *{position:relative;margin-top:var(--s-5);}
+.flow > * + *::before{
+  content:"";position:absolute;
+  top:calc(var(--s-5) * -1);left:calc(50% - 0.5px);
+  width:1px;height:var(--s-5);
+  background:var(--line);
+}
+
+/* the fork: bracket out to two branches, then back together */
+.flow-split{padding:var(--s-4) 0;}
+.flow-split::after,
+.flow-branches::after{
+  content:"";position:absolute;
+  left:25%;right:25%;height:var(--s-4);
+  border-left:1px solid var(--line);
+  border-right:1px solid var(--line);
+}
+.flow-split::after{top:0;border-top:1px solid var(--line);}
+.flow-branches{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);}
+.flow-branches::after{top:100%;border-bottom:1px solid var(--line);}
 
 /* quiet statements */
 .facts{padding:var(--s-6) 0;}
@@ -533,9 +537,20 @@ footer a:hover{color:var(--terracotta);}
   .pkg-more a{white-space:nowrap;}
   .ways{grid-template-columns:1fr;}
   .facts-grid{grid-template-columns:1fr;gap:var(--s-3);}
-  .paths{grid-template-columns:1fr;}
-  .path{padding:0 0 34px;}
-  .path + .path{padding:34px 0 0;border-left:none;}
+
+  /* stacked, a bracket makes no sense — plain connectors instead */
+  .flow-branches{grid-template-columns:1fr;gap:var(--s-5);}
+  .flow-split::after,
+  .flow-branches::after{display:none;}
+  .flow-branch + .flow-branch::before{
+    content:"";position:absolute;
+    top:calc(var(--s-5) * -1);left:calc(50% - 0.5px);
+    width:1px;height:var(--s-5);
+    background:var(--line);
+  }
+  .flow-branch{position:relative;}
+  .flow-split{padding:var(--s-5) 0 0;}
+
   section{padding:70px 0;}
   footer{flex-direction:column;gap:8px;}
 }
