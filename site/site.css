@@ -1,0 +1,541 @@
+/* =============================================================
+   ArteVia — shared stylesheet for every page
+   -------------------------------------------------------------
+   Where two pages disagreed, the homepage wins. The only
+   exceptions are marked PAGE MODIFIER and explained inline.
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1 · Tokens
+   ------------------------------------------------------------- */
+:root{
+  --bone:#F7F1EC;
+  --sand:#EBE0D6;
+  --sand-deep:#DCCBBA;
+  --olive:#3E4A34;
+  --olive-soft:#6E7860;
+  --terracotta:#9C5B5A;
+  --ink:#2E2A28;
+  --ink-soft:#55493F;
+  --line:#D9C9BA;
+  --nav-h:72px;
+
+  /* type scale — every step has one job */
+  --t-micro:11.5px;   /* uppercase labels */
+  --t-small:13.5px;   /* nav, footer */
+  --t-body:16.5px;    /* all body copy */
+  --t-lead:19px;      /* lead paragraphs */
+  --t-h3:21px;        /* card titles */
+  --t-statement:24px; /* pull quotes */
+  --t-h2:30px;        /* section headings */
+  --t-h1:clamp(38px,4.8vw,54px);
+
+  /* spacing scale — 8px base */
+  --s-1:8px;  --s-2:16px; --s-3:24px; --s-4:32px;
+  --s-5:40px; --s-6:56px; --s-7:72px; --s-8:96px;
+
+  /* reading measure — overridden per page type below */
+  --measure:1080px;
+}
+
+
+/* -------------------------------------------------------------
+   2 · Reset and base
+   ------------------------------------------------------------- */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+
+body{
+  font-family:'Jost',sans-serif;font-weight:300;
+  color:var(--ink);background:var(--bone);
+  line-height:1.6;font-size:var(--t-body);
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3{
+  font-family:'Marcellus',serif;font-weight:400;
+  letter-spacing:0.01em;line-height:1.2;
+}
+
+a{color:inherit;}
+
+/* STANDING RULE — a link never breaks across two lines, at any width.
+   Applies to every link that is a short phrase or a call to action. */
+.cta, .more, .way-btn, .pkg-more a, .nav-links a, .nav-panel a,
+footer a, .closing a.mail{
+  white-space:nowrap;
+}
+
+
+/* -------------------------------------------------------------
+   3 · Layout
+   ------------------------------------------------------------- */
+.shell{max-width:var(--measure);margin:0 auto;padding:0 40px;}
+
+section{padding:var(--s-8) 0;}
+.alt{background:var(--sand);}
+
+/* PAGE MODIFIER — reading measure.
+   Long-form prose at 1080px runs to ~140 characters a line, which is
+   unreadable. These pages keep their narrower measure; everything else
+   about them follows the homepage. */
+body.page-about{--measure:900px;}
+body.page-legal{--measure:760px;}
+
+/* the nav bar spans the full width regardless of page measure */
+.nav .shell{max-width:1080px;}
+
+
+/* -------------------------------------------------------------
+   4 · Navigation
+   ------------------------------------------------------------- */
+.nav{
+  position:sticky;top:0;z-index:60;
+  height:var(--nav-h);
+  background:rgba(251,248,243,0.86);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s, background .3s;
+}
+.nav.scrolled{border-bottom-color:var(--line);}
+.nav .shell{height:100%;display:flex;align-items:center;justify-content:space-between;}
+
+/* wordmark — placeholder for a proper logo */
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.mark .wordmark{
+  font-family:'Marcellus',serif;font-size:16px;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--olive);transition:color .25s;
+}
+.mark:hover .wordmark{color:var(--terracotta);}
+
+.nav-links{display:flex;align-items:center;gap:30px;}
+.nav-links a{
+  font-size:var(--t-small);letter-spacing:0.13em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;
+  padding:6px 0;position:relative;
+  transition:color .25s;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;
+  width:0;height:1px;background:var(--terracotta);
+  transition:width .3s;
+}
+.nav-links a:hover{color:var(--terracotta);}
+.nav-links a.active{color:var(--terracotta);}
+.nav-links a.active::after{width:100%;}
+.nav-links a.nav-cta{
+  color:var(--olive);border:1px solid var(--line);
+  padding:9px 20px;border-radius:999px;
+  transition:background .25s,color .25s,border-color .25s;
+}
+.nav-links a.nav-cta::after{display:none;}
+.nav-links a.nav-cta:hover{background:var(--olive);color:var(--bone);border-color:var(--olive);}
+
+/* hamburger — only rendered on pages with a full menu */
+.nav-toggle{
+  display:none;background:none;border:0;cursor:pointer;
+  width:40px;height:40px;padding:9px 8px;
+  align-items:center;justify-content:center;flex-direction:column;gap:5px;
+}
+.nav-toggle span{
+  display:block;width:22px;height:1.4px;background:var(--olive);
+  transition:transform .3s, opacity .2s;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.4px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.4px) rotate(-45deg);}
+
+.nav-panel{
+  display:none;
+  position:fixed;left:0;right:0;top:var(--nav-h);
+  background:var(--bone);border-bottom:1px solid var(--line);
+  padding:var(--s-2) 0 var(--s-4);z-index:55;
+}
+.nav-panel.open{display:block;}
+.nav-panel a{
+  display:block;padding:15px 40px;
+  font-size:var(--t-body);letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;
+  border-bottom:1px solid var(--line);
+}
+.nav-panel a:last-child{border-bottom:0;color:var(--terracotta);}
+
+
+/* -------------------------------------------------------------
+   5 · Footer
+   ------------------------------------------------------------- */
+footer{
+  padding:var(--s-4) 0 var(--s-6);
+  display:flex;justify-content:space-between;
+  font-size:var(--t-small);letter-spacing:0.04em;
+  color:var(--olive-soft);
+}
+footer a{color:var(--olive-soft);text-decoration:none;}
+footer a:hover{color:var(--terracotta);}
+
+
+/* =============================================================
+   6 · Homepage
+   ============================================================= */
+
+/* hero — type only, no portrait */
+.hero{
+  text-align:center;
+  padding:clamp(88px,12vw,136px) 0 clamp(96px,13vw,144px);
+}
+.eyebrow{
+  font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--terracotta);margin-bottom:26px;
+}
+.hero h1{font-size:var(--t-h1);margin:0 auto 24px;max-width:17ch;line-height:1.14;}
+.hero h1 em{font-style:italic;color:var(--olive);}
+.hero-sub{
+  font-size:var(--t-lead);color:var(--ink-soft);
+  line-height:1.5;max-width:52ch;margin:0 auto 42px;
+}
+.cta{
+  display:inline-block;font-size:var(--t-small);
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--olive);text-decoration:none;padding-bottom:7px;
+  border-bottom:1px solid var(--olive);
+  transition:color .25s,border-color .25s,letter-spacing .25s;
+}
+.cta:hover{color:var(--terracotta);border-color:var(--terracotta);letter-spacing:0.19em;}
+
+.sec-h{
+  font-size:var(--t-h2);color:var(--olive);
+  margin:0 auto var(--s-6);max-width:22ch;text-align:center;
+}
+.lede{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
+.lede + .lede{margin-top:20px;}
+
+.more{
+  display:inline-block;margin-top:32px;
+  font-size:var(--t-small);letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--olive);text-decoration:none;
+  border-bottom:1px solid var(--line);padding-bottom:6px;
+  transition:color .25s,border-color .25s;
+}
+.more:hover{color:var(--terracotta);border-color:var(--terracotta);}
+
+/* one musical phrase, split across the page — admin, then a rest */
+.bar-fig{display:block;width:100%;max-width:360px;height:auto;margin:0 auto var(--s-4);}
+.bar-fig .stv{stroke:var(--olive);stroke-width:1;opacity:.4;}
+.bar-fig .ink{stroke:var(--olive);stroke-width:1.5;}
+.bar-fig .clef{
+  fill:none;stroke:var(--olive);stroke-width:3.4;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.bar-fig .barline{stroke:var(--olive);stroke-width:1.4;opacity:.7;}
+.bar-fig .fclef{fill:var(--olive);stroke:var(--olive);}
+
+/* the problem, stated once, between hero and services */
+.statement{background:var(--sand);text-align:center;padding:var(--s-6) 0;}
+.statement blockquote{
+  font-family:'Marcellus',serif;font-size:var(--t-statement);
+  color:var(--olive-soft);line-height:1.5;
+  max-width:38ch;margin:0 auto;
+}
+
+/* closing stance — the strongest line, given its own room */
+.stance{text-align:center;padding:var(--s-7) 0;}
+.stance p{
+  font-size:var(--t-statement);color:var(--olive);
+  line-height:1.45;max-width:34ch;margin:0 auto;
+}
+.stance .more{margin-top:var(--s-4);}
+
+/* ---- package picker ---- */
+.pkg-intro{
+  text-align:center;color:var(--ink-soft);font-size:var(--t-body);
+  max-width:56ch;margin:calc(var(--s-4) * -1) auto var(--s-6);
+}
+.pkg-tabs{
+  display:grid;grid-template-columns:minmax(210px,27%) 1fr;
+  gap:var(--s-5);align-items:start;
+}
+.pkg-list{display:flex;flex-direction:column;gap:4px;}
+
+/* three states, deliberately far apart:
+   rest = outlined · hover = tinted + arrow moves · active = filled + accent */
+.pkg-tab{
+  appearance:none;cursor:pointer;font:inherit;text-align:left;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:15px 16px 15px 17px;
+  background:transparent;
+  border:1px solid var(--line);
+  border-left:3px solid var(--sand-deep);
+  border-radius:10px;
+  transition:background .18s, border-color .18s, box-shadow .18s;
+}
+.pkg-tab .tab-name{
+  font-family:'Marcellus',serif;font-size:var(--t-body);
+  color:var(--ink-soft);line-height:1.35;transition:color .18s;
+}
+.pkg-tab .tab-arrow{
+  flex:0 0 auto;width:7px;height:7px;
+  border-right:1.7px solid var(--sand-deep);
+  border-top:1.7px solid var(--sand-deep);
+  transform:rotate(45deg);
+  transition:border-color .18s, transform .18s;
+}
+.pkg-tab:hover{
+  background:var(--sand);
+  border-color:var(--sand-deep);
+  border-left-color:var(--olive-soft);
+}
+.pkg-tab:hover .tab-name{color:var(--olive);}
+.pkg-tab:hover .tab-arrow{border-color:var(--olive-soft);transform:rotate(45deg) translate(2px,-2px);}
+.pkg-tab[aria-selected="true"]{
+  background:var(--olive);
+  border-color:var(--olive);
+  border-left-color:var(--terracotta);
+  box-shadow:0 1px 10px rgba(46,42,40,0.10);
+}
+.pkg-tab[aria-selected="true"] .tab-name{color:var(--bone);}
+.pkg-tab[aria-selected="true"] .tab-arrow{border-color:var(--bone);transform:rotate(45deg) translate(2px,-2px);}
+.pkg-tab:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+
+.pkg-stage{background:var(--sand);border-radius:26px;}
+.pkg-panel{padding:38px 42px 34px;}
+.pkg-panel:focus{outline:none;}
+.pkg-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-2);
+  margin-bottom:var(--s-2);
+}
+.pkg-head h3{font-size:var(--t-h3);color:var(--olive);}
+.pkg-dur{
+  font-size:var(--t-micro);letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--terracotta);
+}
+.pkg-promise{
+  font-size:var(--t-lead);color:var(--ink-soft);line-height:1.45;
+  margin-bottom:var(--s-4);max-width:46ch;
+}
+.pkg-panel ul{margin:0;padding-left:20px;}
+.pkg-panel li{font-size:var(--t-body);color:var(--ink-soft);line-height:1.55;margin-bottom:9px;}
+.pkg-keep{
+  margin-top:var(--s-4);padding-top:var(--s-3);
+  border-top:1px solid var(--sand-deep);
+  font-size:var(--t-small);color:var(--ink-soft);line-height:1.55;
+}
+.pkg-keep strong{font-weight:400;color:var(--olive);}
+.pkg-more{
+  text-align:center;font-size:var(--t-body);color:var(--ink-soft);
+  max-width:64ch;margin:var(--s-6) auto 0;
+}
+.pkg-more a{
+  color:var(--olive);text-decoration:none;
+  border-bottom:1px solid var(--line);padding-bottom:3px;
+  transition:color .25s,border-color .25s;
+}
+.pkg-more a:hover{color:var(--terracotta);border-color:var(--terracotta);}
+
+/* ongoing support — sits under the packages */
+.ongoing{
+  max-width:60ch;margin:var(--s-7) auto 0;
+  padding-top:var(--s-5);border-top:1px solid var(--line);
+  text-align:center;
+}
+.ongoing h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
+.ongoing p{font-size:var(--t-body);color:var(--ink-soft);}
+
+/* how it works */
+.paths{display:grid;grid-template-columns:1fr 1fr;}
+.path{padding:6px 46px 6px 0;}
+.path + .path{padding:6px 0 6px 46px;border-left:1px solid var(--line);}
+.path .num{font-family:'Marcellus',serif;font-size:var(--t-h2);color:var(--sand-deep);display:block;margin-bottom:10px;}
+.path h3{font-size:var(--t-h3);margin-bottom:12px;color:var(--olive);}
+.path p{color:var(--ink-soft);font-size:var(--t-body);}
+.then{
+  margin-top:var(--s-6);padding-top:var(--s-5);
+  border-top:1px solid var(--line);
+  font-size:var(--t-body);color:var(--ink-soft);max-width:60ch;
+}
+
+/* quiet statements */
+.facts{padding:var(--s-6) 0;}
+.facts-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6);
+  max-width:840px;margin:0 auto;
+}
+.facts-grid p{
+  font-size:var(--t-body);color:var(--ink-soft);line-height:1.6;
+  padding-left:var(--s-3);border-left:1px solid var(--line);
+}
+
+/* trusted by */
+.trust-logos{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  max-width:840px;margin:0 auto;
+}
+.trust-slot{
+  background:var(--bone);border:1px solid var(--line);border-radius:16px;
+  height:100px;padding:18px;
+  display:flex;align-items:center;justify-content:center;
+}
+.trust-slot img{max-height:54px;max-width:100%;object-fit:contain;}
+.trust-slot .ph{
+  font-size:var(--t-micro);letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--sand-deep);
+}
+
+
+/* =============================================================
+   7 · Closing block — homepage and about
+   ============================================================= */
+.closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-8) 0;}
+.closing h2{font-size:var(--t-h2);margin-bottom:20px;}
+.closing p{color:#C7CEBA;max-width:46ch;margin:0 auto var(--s-5);}
+.closing a.mail{
+  font-family:'Marcellus',serif;font-size:var(--t-h3);color:var(--bone);text-decoration:none;
+  border-bottom:1px solid rgba(251,248,243,0.4);padding-bottom:6px;
+  transition:border-color .25s;
+}
+.closing a.mail:hover{border-color:var(--bone);}
+
+.ways{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2);
+  max-width:640px;margin:0 auto;text-align:left;
+}
+.way{
+  background:rgba(247,241,236,0.07);
+  border:1px solid rgba(247,241,236,0.18);
+  border-radius:20px;padding:var(--s-4) var(--s-3) var(--s-3);
+  display:flex;flex-direction:column;
+}
+.way h3{font-size:var(--t-h3);color:var(--bone);margin-bottom:var(--s-1);}
+.way p{
+  color:#9FAA90;font-size:var(--t-body);line-height:1.55;
+  max-width:none;margin:0 0 var(--s-3);flex:1;
+}
+.way-btn{
+  align-self:flex-start;
+  font-size:var(--t-small);letter-spacing:0.1em;
+  color:#C7CEBA;text-decoration:none;
+  border-bottom:1px solid rgba(247,241,236,0.3);padding-bottom:5px;
+  transition:color .25s,border-color .25s;
+}
+.way-btn:hover{color:var(--bone);border-color:var(--bone);}
+
+
+/* =============================================================
+   8 · About page
+   ============================================================= */
+/* .head is shared with the legal pages, so anything specific to About
+   is scoped — otherwise max-width:16ch would clamp "Privacy Policy" too. */
+.head{padding:var(--s-8) 0 0;}
+.head h1{font-size:var(--t-h1);margin-bottom:var(--s-3);}
+.page-about .head h1{max-width:16ch;}
+.head .intro{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
+
+.portrait-row{
+  display:grid;grid-template-columns:0.8fr 1.2fr;
+  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 0;
+}
+.arch{
+  width:100%;aspect-ratio:3/4;
+  border-radius:50% 50% 8px 8px / 42% 42% 4px 4px;
+  background:var(--sand);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--olive-soft);font-size:var(--t-micro);
+  letter-spacing:0.16em;text-transform:uppercase;
+  overflow:hidden;
+}
+.arch img{width:100%;height:100%;object-fit:cover;}
+.portrait-row p{color:var(--ink-soft);}
+.portrait-row p + p{margin-top:var(--s-3);}
+.name{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
+
+.edu-mini{margin-top:var(--s-5);}
+.edu-mini .lab{
+  font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--olive-soft);margin-bottom:var(--s-1);
+}
+.edu-mini p{font-size:var(--t-small);color:var(--ink-soft);line-height:1.6;}
+.edu-mini p + p{margin-top:var(--s-2);}
+.edu-mini strong{font-weight:400;color:var(--olive);}
+
+.beliefs{background:var(--sand);}
+.beliefs .inner{max-width:62ch;}
+.beliefs h2{font-size:var(--t-h2);color:var(--olive);margin-bottom:var(--s-4);}
+.beliefs p{color:var(--ink-soft);font-size:var(--t-body);}
+.beliefs p + p{margin-top:var(--s-3);}
+
+
+/* =============================================================
+   9 · Legal pages — privacy, terms
+   ============================================================= */
+.page-legal .head{padding:var(--s-8) 0 var(--s-5);}
+.page-legal .head h1{margin-bottom:var(--s-2);max-width:none;}
+.updated{font-size:var(--t-small);color:var(--olive-soft);letter-spacing:0.06em;}
+
+.doc{padding-bottom:var(--s-8);}
+.doc h2{font-size:var(--t-h3);color:var(--olive);margin:var(--s-6) 0 var(--s-2);}
+.doc p{color:var(--ink-soft);margin-bottom:var(--s-2);}
+.doc ul{list-style:none;margin:0 0 var(--s-2);}
+.doc li{color:var(--ink-soft);padding-left:18px;position:relative;margin-bottom:var(--s-1);}
+.doc li::before{
+  content:"";position:absolute;left:0;top:10px;
+  width:5px;height:5px;border-radius:50%;background:var(--sand-deep);
+}
+
+/* the global rule is a{color:inherit}, which would make links inside
+   long-form prose invisible. Prose links stay visibly links. */
+.doc a{
+  color:var(--olive);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--sand-deep);
+  transition:color .25s, text-decoration-color .25s;
+}
+.doc a:hover{color:var(--terracotta);text-decoration-color:var(--terracotta);}
+
+.note{
+  background:var(--sand);border-radius:14px;padding:var(--s-3);
+  font-size:var(--t-small);color:var(--ink-soft);margin:var(--s-5) 0;
+}
+
+
+/* =============================================================
+   10 · Responsive
+   ============================================================= */
+@media (max-width:980px){
+  .nav-links{gap:18px;}
+  .nav-links a{font-size:12.5px;letter-spacing:0.09em;}
+}
+
+@media (max-width:900px){
+  .pkg-tabs{grid-template-columns:1fr;gap:var(--s-4);}
+  .pkg-tab{padding:12px 0 12px 18px;}
+  .pkg-panel{padding:30px 26px 28px;}
+  .pkg-stage{border-radius:20px;}
+  .trust-logos{grid-template-columns:repeat(2,1fr);max-width:420px;}
+}
+
+@media (max-width:760px){
+  .portrait-row{grid-template-columns:1fr;gap:var(--s-5);}
+  .arch{max-width:260px;}
+}
+
+@media (max-width:700px){
+  .shell{padding:0 22px;}
+
+  /* only pages with a hamburger hide their inline links */
+  .nav--menu .nav-links{display:none;}
+  .nav--menu .nav-toggle{display:flex;}
+  .nav-panel a{padding-left:22px;padding-right:22px;}
+
+  .pkg-more a{white-space:nowrap;}
+  .ways{grid-template-columns:1fr;}
+  .facts-grid{grid-template-columns:1fr;gap:var(--s-3);}
+  .paths{grid-template-columns:1fr;}
+  .path{padding:0 0 34px;}
+  .path + .path{padding:34px 0 0;border-left:none;}
+  section{padding:70px 0;}
+  footer{flex-direction:column;gap:8px;}
+}
