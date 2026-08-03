@@ -229,16 +229,22 @@ footer a:hover{color:var(--terracotta);}
 .hero .eyebrow{
   font-size:var(--t-small);letter-spacing:0.22em;margin-bottom:22px;
 }
+/* 24ch is the width at which this headline lands on two lines instead of three.
+   17ch and 20ch both broke it three ways — the earlier widening changed where
+   the breaks fell without removing one. balance keeps the two lines even, and
+   stops a short orphan if the wording changes. */
 .hero h1{
   font-size:clamp(34px,4.2vw,48px);margin:0 auto 24px;
-  max-width:20ch;line-height:1.16;
+  max-width:24ch;line-height:1.16;text-wrap:balance;
 }
 .hero h1 em{font-style:italic;color:var(--olive);}
-/* 20ch and 40ch deliberately: headline and sub share a spine rather than
-   stacking a tall narrow block on a wide flat one */
+/* 62ch ~= 590px, just wider than the h1's 24ch measure and just wider than this
+   sentence needs — so the headline takes two lines, the sub takes one, and both
+   blocks are the same width. 40ch was set against the old narrower h1 and now
+   wraps the sub for no reason. */
 .hero-sub{
   font-size:var(--t-lead);color:var(--ink-soft);
-  line-height:1.5;max-width:40ch;margin:0 auto 42px;
+  line-height:1.5;max-width:62ch;margin:0 auto 42px;text-wrap:balance;
 }
 .cta{
   display:inline-block;font-size:var(--t-small);
@@ -288,8 +294,9 @@ footer a:hover{color:var(--terracotta);}
   letter-spacing:3px;fill:var(--terracotta);text-anchor:middle;
 }
 
-/* the figure sits under the services heading, not in a section of its own */
-.bar-fig{margin-bottom:var(--s-7);}
+/* the figure now closes the services section rather than introducing it — the
+   picker says what the work is, then the stave shows the point of it */
+.bar-fig{margin-top:var(--s-7);}
 
 /* closing stance — the strongest line, given its own room */
 .stance{text-align:center;padding:var(--s-7) 0;}
@@ -300,10 +307,14 @@ footer a:hover{color:var(--terracotta);}
 .stance .more{margin-top:var(--s-4);}
 
 /* ---- package picker ---- */
+/* no align-items:start — both columns stretch to the taller one (the tab stack),
+   which is what lets the ask line drop to the foot of the panel column and
+   finish level with the last tab. */
 .pkg-tabs{
   display:grid;grid-template-columns:minmax(210px,27%) 1fr;
-  gap:var(--s-5);align-items:start;
+  gap:var(--s-5);
 }
+.pkg-col{display:flex;flex-direction:column;}
 .pkg-list{display:flex;flex-direction:column;gap:4px;}
 
 /* three states, deliberately far apart:
@@ -370,13 +381,12 @@ footer a:hover{color:var(--terracotta);}
   font-size:var(--t-small);color:var(--ink-soft);line-height:1.55;
 }
 .pkg-keep strong{font-weight:400;color:var(--olive);}
-/* sits inside the .pkg-tabs grid, in the panel column — so it starts at the
-   stage's left edge, level with the bottom of the tab stack rather than
-   floating centred underneath. The picker then reads as one rectangle. */
+/* margin-top:auto is the whole trick — it eats the leftover height in the flex
+   column and parks this line on the baseline of the tab stack. The padding is a
+   floor, for when the panel is tall enough that there's nothing spare. */
 .pkg-more{
-  grid-column:2;
+  margin:auto 0 0;padding:var(--s-3) 0 0;
   text-align:left;font-size:var(--t-body);color:var(--ink-soft);
-  margin:var(--s-4) 0 0;
 }
 .pkg-more a{
   color:var(--olive);text-decoration:none;
@@ -389,8 +399,14 @@ footer a:hover{color:var(--terracotta);}
 /* ---- how it works: a flow, because the middle step is a fork ---- */
 .flow{max-width:780px;margin:0 auto;text-align:center;}
 
+/* width:max-content — each box shrinks to its own text instead of every one
+   running the full 780px. Short steps get small boxes, which is what makes it
+   read as a diagram rather than a stack of banners. max-width keeps them inside
+   the column on a phone; the auto margins keep them centred, which matters
+   because the connector below is drawn at 50% of the box. */
 .flow-node,
 .flow-branch{
+  width:max-content;max-width:100%;margin-inline:auto;
   background:var(--bone);
   border:1px solid var(--line);
   border-radius:14px;
@@ -496,7 +512,10 @@ footer a:hover{color:var(--terracotta);}
    is scoped — otherwise max-width:16ch would clamp "Privacy Policy" too. */
 .head{padding:var(--s-8) 0 0;}
 .head h1{font-size:var(--t-h1);margin-bottom:var(--s-3);}
-.page-about .head h1{max-width:16ch;}
+/* 20ch, not 16ch. At 16ch this headline broke three ways — "I came to /
+   operations from / the stage." — which is one line more than it needs.
+   18ch is the exact threshold; 20 leaves room if the wording changes. */
+.page-about .head h1{max-width:20ch;text-wrap:balance;}
 .head .intro{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
 
 /* bottom padding is deliberate: without it the sand of .beliefs starts flush
@@ -582,9 +601,6 @@ footer a:hover{color:var(--terracotta);}
 
 @media (max-width:900px){
   .pkg-tabs{grid-template-columns:1fr;gap:var(--s-4);}
-  /* single column here — reset the panel-column placement or the grid invents
-     a second column and the line lands off to the side */
-  .pkg-more{grid-column:1;}
   .pkg-tab{padding:12px 0 12px 18px;}
   .pkg-panel{padding:30px 26px 28px;}
   .pkg-stage{border-radius:20px;}
