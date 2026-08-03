@@ -7,6 +7,38 @@
 
 
 /* -------------------------------------------------------------
+   0 · Fonts — self-hosted, deliberately
+   -------------------------------------------------------------
+   These were loaded from fonts.googleapis.com, which sends every
+   visitor's IP address to Google before the page renders. A German
+   court has held that this breaches GDPR without consent, and this
+   site publishes a privacy policy saying it uses no trackers.
+   Serving the files ourselves makes that sentence true and removes
+   a render-blocking third-party request.
+
+   Both faces are SIL Open Font License 1.1 — redistribution is
+   permitted. Latin subset only, woff2 only, 44KB total.
+   Marcellus © Astigmatic. Jost © The Jost Project Authors.
+   ------------------------------------------------------------- */
+@font-face{
+  font-family:'Marcellus';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/marcellus-latin-400-normal.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Jost';font-style:normal;font-weight:300;font-display:swap;
+  src:url('fonts/jost-latin-300-normal.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Jost';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/jost-latin-400-normal.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Jost';font-style:normal;font-weight:500;font-display:swap;
+  src:url('fonts/jost-latin-500-normal.woff2') format('woff2');
+}
+
+
+/* -------------------------------------------------------------
    1 · Tokens
    ------------------------------------------------------------- */
 :root{
@@ -191,11 +223,22 @@ footer a:hover{color:var(--terracotta);}
   font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
   color:var(--terracotta);margin-bottom:26px;
 }
-.hero h1{font-size:var(--t-h1);margin:0 auto 24px;max-width:17ch;line-height:1.14;}
+/* the homepage eyebrow carries the descriptor, not a page label — it is the only
+   line that says what the business is, so it is set larger than the About and
+   Legal eyebrows. Wider type needs less tracking to hold together. */
+.hero .eyebrow{
+  font-size:var(--t-small);letter-spacing:0.22em;margin-bottom:22px;
+}
+.hero h1{
+  font-size:clamp(34px,4.2vw,48px);margin:0 auto 24px;
+  max-width:20ch;line-height:1.16;
+}
 .hero h1 em{font-style:italic;color:var(--olive);}
+/* 20ch and 40ch deliberately: headline and sub share a spine rather than
+   stacking a tall narrow block on a wide flat one */
 .hero-sub{
   font-size:var(--t-lead);color:var(--ink-soft);
-  line-height:1.5;max-width:52ch;margin:0 auto 42px;
+  line-height:1.5;max-width:40ch;margin:0 auto 42px;
 }
 .cta{
   display:inline-block;font-size:var(--t-small);
@@ -206,9 +249,16 @@ footer a:hover{color:var(--terracotta);}
 }
 .cta:hover{color:var(--terracotta);border-color:var(--terracotta);letter-spacing:0.19em;}
 
+/* 32ch, not 22ch. The old cap was narrower than the longest heading on the
+   site, so "What I Can Take Off Your Plate" was forced to wrap and left "Plate"
+   alone on the second line. 32ch fits it on one; the cap stays so a future
+   longer heading can't run the full 1080px. text-wrap:balance is the safety
+   net — anything that does wrap splits evenly instead of orphaning a word.
+   Ignored by older browsers, which simply wrap as before. */
 .sec-h{
   font-size:var(--t-h2);color:var(--olive);
-  margin:0 auto var(--s-6);max-width:22ch;text-align:center;
+  margin:0 auto var(--s-6);max-width:32ch;text-align:center;
+  text-wrap:balance;
 }
 
 .more{
@@ -229,6 +279,14 @@ footer a:hover{color:var(--terracotta);}
   stroke-linecap:round;stroke-linejoin:round;
 }
 .bar-fig .barline{stroke:var(--olive);stroke-width:1.4;opacity:.7;}
+.bar-fig .barline-thick{fill:var(--olive);opacity:.7;}
+.bar-fig .rest{fill:var(--terracotta);}
+/* 14 units, not 11 — the figure renders at 720px inside a 900-unit viewBox, so
+   SVG units land at 0.8x. 14 gives roughly 11px on screen, matching --t-micro. */
+.bar-fig .fig-lab{
+  font-family:'Jost',sans-serif;font-size:14px;font-weight:400;
+  letter-spacing:3px;fill:var(--terracotta);text-anchor:middle;
+}
 
 /* the figure sits under the services heading, not in a section of its own */
 .bar-fig{margin-bottom:var(--s-7);}
@@ -312,9 +370,13 @@ footer a:hover{color:var(--terracotta);}
   font-size:var(--t-small);color:var(--ink-soft);line-height:1.55;
 }
 .pkg-keep strong{font-weight:400;color:var(--olive);}
+/* sits inside the .pkg-tabs grid, in the panel column — so it starts at the
+   stage's left edge, level with the bottom of the tab stack rather than
+   floating centred underneath. The picker then reads as one rectangle. */
 .pkg-more{
-  text-align:center;font-size:var(--t-body);color:var(--ink-soft);
-  max-width:64ch;margin:var(--s-6) auto 0;
+  grid-column:2;
+  text-align:left;font-size:var(--t-body);color:var(--ink-soft);
+  margin:var(--s-4) 0 0;
 }
 .pkg-more a{
   color:var(--olive);text-decoration:none;
@@ -437,9 +499,12 @@ footer a:hover{color:var(--terracotta);}
 .page-about .head h1{max-width:16ch;}
 .head .intro{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
 
+/* bottom padding is deliberate: without it the sand of .beliefs starts flush
+   against the last line of the education block, and the colour change reads as
+   a mistake. The 96px below keeps the boundary clear of the text. */
 .portrait-row{
   display:grid;grid-template-columns:0.8fr 1.2fr;
-  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 0;
+  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 var(--s-8);
 }
 .arch{
   width:100%;aspect-ratio:3/4;
@@ -456,9 +521,11 @@ footer a:hover{color:var(--terracotta);}
 .name{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
 
 .edu-mini{margin-top:var(--s-5);}
+/* terracotta, not olive-soft — every other micro label on the site is
+   terracotta (.eyebrow, .pkg-dur). olive-soft is footer and secondary text. */
 .edu-mini .lab{
   font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
-  color:var(--olive-soft);margin-bottom:var(--s-1);
+  color:var(--terracotta);margin-bottom:var(--s-1);
 }
 .edu-mini p{font-size:var(--t-small);color:var(--ink-soft);line-height:1.6;}
 .edu-mini p + p{margin-top:var(--s-2);}
@@ -515,6 +582,9 @@ footer a:hover{color:var(--terracotta);}
 
 @media (max-width:900px){
   .pkg-tabs{grid-template-columns:1fr;gap:var(--s-4);}
+  /* single column here — reset the panel-column placement or the grid invents
+     a second column and the line lands off to the side */
+  .pkg-more{grid-column:1;}
   .pkg-tab{padding:12px 0 12px 18px;}
   .pkg-panel{padding:30px 26px 28px;}
   .pkg-stage{border-radius:20px;}

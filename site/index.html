@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arts Operations Partner — for independent artists and small arts organisations</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/marcellus-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -38,7 +37,7 @@
   <div class="hero">
     <div class="eyebrow">Arts Operations Partner</div>
     <h1>The business side of your creative work — <em>handled.</em></h1>
-    <p class="hero-sub">Fractional support for arts organisations growing out of being their own admin department — without the cost or commitment of a full-time hire.</p>
+    <p class="hero-sub">Fractional support for independent artists and arts organisations.</p>
     <a class="cta" href="#contact">Get in touch</a>
   </div>
 </div>
@@ -48,7 +47,11 @@
     <h2 class="sec-h">What I Can Take Off Your Plate</h2>
     <!-- one system, two bars: a key signature of admin, then a bar of rest -->
     <svg class="bar-fig" viewBox="0 0 900 120" role="img"
-         aria-label="A musical stave. The key signature is made of admin icons — envelope, calendar, clock, invoice, document, checklist, folder. The following bar contains only a rest.">
+         aria-label="A musical stave in two bars. The first, labelled Before, has a key signature made of admin icons — envelope, calendar, clock, invoice, document, checklist, folder. The second, labelled After, contains only a rest.">
+      <!-- labels sit below the stave: baseline 108 clears the bottom line at 86
+           and the clef's tail at 94, with room left for descenders inside 120 -->
+      <text class="fig-lab" x="221" y="108">BEFORE</text>
+      <text class="fig-lab" x="659" y="108">AFTER</text>
       <g class="stv">
         <line x1="2" y1="30" x2="890" y2="30"/><line x1="2" y1="44" x2="890" y2="44"/>
         <line x1="2" y1="58" x2="890" y2="58"/><line x1="2" y1="72" x2="890" y2="72"/>
@@ -70,34 +73,39 @@
 
       <line class="barline" x1="440" y1="30" x2="440" y2="86"/>
 
-      <!-- bar 2 — nothing but a rest -->
-      <rect x="649" y="44" width="34" height="11" fill="#9C5B5A"/>
+      <!-- bar 2 — nothing but a rest. A whole rest hangs from the fourth line,
+           and sits centred in the bar it silences: (440+878)/2 - 34/2 = 642 -->
+      <rect class="rest" x="642" y="44" width="34" height="11"/>
 
-      <!-- final double barline -->
+      <!-- final double barline — thin, then thick -->
       <line class="barline" x1="878" y1="30" x2="878" y2="86"/>
-      <rect x="885" y="30" width="5" height="56" fill="#3E4A34" opacity=".85"/>
+      <rect class="barline-thick" x="885" y="30" width="5" height="56"/>
     </svg>
     <div class="pkg-tabs">
 
-      <div class="pkg-list" role="tablist" aria-orientation="vertical" aria-label="Packages">
+      <div class="pkg-list" role="tablist" aria-orientation="vertical" aria-label="Areas of work">
         <button class="pkg-tab" role="tab" id="ptab-1" aria-controls="ppan-1" aria-selected="true">
-          <span class="tab-name">Inbox &amp; Enquiry Triage</span>
+          <span class="tab-name">Productions</span>
           <span class="tab-arrow" aria-hidden="true"></span>
         </button>
         <button class="pkg-tab" role="tab" id="ptab-2" aria-controls="ppan-2" aria-selected="false" tabindex="-1">
-          <span class="tab-name">Handover &amp; Continuity Pack</span>
+          <span class="tab-name">Venues</span>
           <span class="tab-arrow" aria-hidden="true"></span>
         </button>
         <button class="pkg-tab" role="tab" id="ptab-3" aria-controls="ppan-3" aria-selected="false" tabindex="-1">
-          <span class="tab-name">Event Production Pack</span>
+          <span class="tab-name">Logistics</span>
           <span class="tab-arrow" aria-hidden="true"></span>
         </button>
         <button class="pkg-tab" role="tab" id="ptab-4" aria-controls="ppan-4" aria-selected="false" tabindex="-1">
-          <span class="tab-name">Season Production System</span>
+          <span class="tab-name">Inbox &amp; Diary</span>
           <span class="tab-arrow" aria-hidden="true"></span>
         </button>
         <button class="pkg-tab" role="tab" id="ptab-5" aria-controls="ppan-5" aria-selected="false" tabindex="-1">
-          <span class="tab-name">Ongoing support</span>
+          <span class="tab-name">Systems</span>
+          <span class="tab-arrow" aria-hidden="true"></span>
+        </button>
+        <button class="pkg-tab" role="tab" id="ptab-6" aria-controls="ppan-6" aria-selected="false" tabindex="-1">
+          <span class="tab-name">Finance</span>
           <span class="tab-arrow" aria-hidden="true"></span>
         </button>
       </div>
@@ -105,75 +113,68 @@
       <div class="pkg-stage">
 
         <div class="pkg-panel" role="tabpanel" id="ppan-1" aria-labelledby="ptab-1" tabindex="0">
-          <div class="pkg-head"><h3>Inbox &amp; Enquiry Triage</h3><span class="pkg-dur">Typically one week</span></div>
-          <p class="pkg-promise">Turn a shared inbox from a pit into a process.</p>
+          <div class="pkg-head"><h3>Productions</h3></div>
           <ul>
-            <li>Audit of what arrives, how often, and what genuinely needs a human</li>
-            <li>Categorisation rules and label structure</li>
-            <li>Response templates for the recurring 80%</li>
-            <li>Escalation paths — what reaches you, what doesn't</li>
-            <li>Agreed response times</li>
+            <li>Timelines and run sheets</li>
+            <li>Rehearsal scheduling</li>
+            <li>Crew sourcing</li>
+            <li>Post-event reporting</li>
           </ul>
-          <p class="pkg-keep">You end up with a working triage system and a set of templates, in your own accounts.</p>
         </div>
 
         <div class="pkg-panel" role="tabpanel" id="ppan-2" aria-labelledby="ptab-2" tabindex="0" hidden>
-          <div class="pkg-head"><h3>Handover &amp; Continuity Pack</h3><span class="pkg-dur">Typically two weeks</span></div>
-          <p class="pkg-promise">What happens when the person who knows everything leaves.</p>
+          <div class="pkg-head"><h3>Venues</h3></div>
           <ul>
-            <li>Written procedures for every recurring process</li>
-            <li>Access and credentials register</li>
-            <li>Supplier, venue and contact list with relationship notes</li>
-            <li>Calendar of annual obligations — renewals, reports, deadlines, insurance</li>
-            <li>Induction pack for whoever comes next</li>
+            <li>Availability and quotes</li>
+            <li>Riders and technical specs</li>
+            <li>Supplier sourcing</li>
           </ul>
-          <p class="pkg-keep">Everything is written down, so the next hire becomes survivable.</p>
         </div>
 
         <div class="pkg-panel" role="tabpanel" id="ppan-3" aria-labelledby="ptab-3" tabindex="0" hidden>
-          <div class="pkg-head"><h3>Event Production Pack</h3><span class="pkg-dur">Typically two to three weeks</span></div>
-          <p class="pkg-promise">Stop rebuilding every concert from scratch.</p>
+          <div class="pkg-head"><h3>Logistics</h3></div>
           <ul>
-            <li>Your last event reverse-engineered into a reusable master timeline</li>
-            <li>Supplier, venue and technical checklists</li>
-            <li>Run sheet and on-the-day schedule templates</li>
-            <li>Communication sequences — artists, crew, audience</li>
-            <li>Contingency list and post-event wash-up template</li>
-            <li>One live event run alongside you, then refined</li>
+            <li>Travel and accommodation</li>
+            <li>Instrument transport</li>
+            <li>Expense tracking</li>
           </ul>
-          <p class="pkg-keep">The pack is yours to use for every event afterwards.</p>
         </div>
 
         <div class="pkg-panel" role="tabpanel" id="ppan-4" aria-labelledby="ptab-4" tabindex="0" hidden>
-          <div class="pkg-head"><h3>Season Production System</h3><span class="pkg-dur">Typically three to four weeks</span></div>
-          <p class="pkg-promise">Every event, contract, deadline, supplier and budget line for a whole season, in one place.</p>
+          <div class="pkg-head"><h3>Inbox &amp; Diary</h3></div>
           <ul>
-            <li>Central build: events, dates, venues, artists, contracts, budgets, deadlines</li>
-            <li>Deadline reminders set up and running</li>
-            <li>Views by event, by month, by status, by owner</li>
-            <li>Populated with your current or upcoming season</li>
-            <li>A session with your team so they can run it without me</li>
+            <li>Email triage</li>
+            <li>Calendar coordination</li>
+            <li>Artist and partner correspondence</li>
+            <li>Escalation paths</li>
           </ul>
-          <p class="pkg-keep">The system stays in your accounts, with a full season already in it.</p>
         </div>
 
         <div class="pkg-panel" role="tabpanel" id="ppan-5" aria-labelledby="ptab-5" tabindex="0" hidden>
-          <div class="pkg-head"><h3>Ongoing support</h3><span class="pkg-dur">One to three days a week</span></div>
-          <p class="pkg-promise">Most arrangements run one to three days a week. Some are a standing weekly rhythm, some are a single event or one busy season.</p>
+          <div class="pkg-head"><h3>Systems</h3></div>
           <ul>
-            <li>Inbox and diary managed daily, to an agreed response time</li>
-            <li>First point of contact for artists, venues and suppliers</li>
-            <li>Events run end to end — timelines, logistics, on-site coordination</li>
-            <li>Systems kept current as the season changes</li>
-            <li>Budgets tracked, invoices prepared, records kept clean</li>
+            <li>Notion and Airtable builds</li>
+            <li>Process documentation</li>
+            <li>Templates and checklists</li>
+            <li>File organisation</li>
+            <li>Team training and handover</li>
           </ul>
-          <p class="pkg-keep">We can start small and adjust once we both know what the work actually takes.</p>
+        </div>
+
+        <div class="pkg-panel" role="tabpanel" id="ppan-6" aria-labelledby="ptab-6" tabindex="0" hidden>
+          <div class="pkg-head"><h3>Finance</h3></div>
+          <ul>
+            <li>Budget tracking</li>
+            <li>Invoice preparation</li>
+            <li>Payment chasing</li>
+            <li>Deadline tracking</li>
+          </ul>
         </div>
 
       </div>
-    </div>
 
-    <p class="pkg-more">Also available: Partner Communication Sequences, Deadline &amp; Submission Tracker, Relationship CRM, and Artist Booking Pipeline. <a href="#contact">Ask about any of these →</a></p>
+      <p class="pkg-more">Something not on the list? <a href="#contact">Ask →</a></p>
+    </div>
   </div>
 </section>
 
@@ -222,14 +223,6 @@
   </div>
 </section>
 
-<section class="facts">
-  <div class="shell">
-    <div class="facts-grid">
-      <p>Everything you share stays private. Artist relationships, fees, contracts — during the work and after it.</p>
-      <p>Based in the UK, working remotely day to day, and on site when an event needs it.</p>
-    </div>
-  </div>
-</section>
 
 <section class="alt" id="trusted">
   <div class="shell">
@@ -247,20 +240,18 @@
 <section class="closing" id="contact">
   <div class="shell">
     <h2>Let's talk about your week.</h2>
-    <p>No preparation needed — just tell me what isn't getting done.</p>
 
     <div class="ways">
 
       <div class="way">
         <h3>Book a call</h3>
-        <p>Thirty minutes, no obligation. Easiest if you'd rather talk it through.</p>
+        <p>Thirty minutes. I'll ask what's on your plate and what's slipping.</p>
         <a class="way-btn" href="https://calendly.com/hello-shiyuzheng/30min" target="_blank" rel="noopener">Pick a time →</a>
       </div>
 
       <div class="way">
         <h3>Send an email</h3>
-        <p>Whatever's on your mind — a few lines is plenty.</p>
-        <a class="way-btn" href="mailto:hello@shiyuzheng.com">Write to me →</a>
+        <a class="way-btn" href="mailto:hello@arte-via.uk">Write to me →</a>
       </div>
 
     </div>
