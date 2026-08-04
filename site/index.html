@@ -48,7 +48,7 @@
 
 <section class="alt" id="services">
   <div class="shell">
-    <h2 class="sec-h">What I Can Take Off Your Plate</h2>
+    <h2 class="sec-h">What I can take off your plate</h2>
     <div class="areas">
 
       <div class="area">
@@ -114,48 +114,108 @@
     <p class="pkg-more">Something not on the list? <a href="#contact">Ask →</a></p>
 
 
-    <!-- one system, two bars: a key signature of admin, then a bar of rest -->
-    <svg class="bar-fig" viewBox="0 0 900 120" role="img"
-         aria-label="A musical stave in two bars. The first, labelled Before, has a key signature made of admin icons — envelope, calendar, clock, invoice, document, checklist, folder. The second, labelled After, contains only a rest.">
-      <!-- labels sit below the stave: baseline 108 clears the bottom line at 86
-           and the clef's tail at 94, with room left for descenders inside 120 -->
-      <text class="fig-lab" x="221" y="108">BEFORE</text>
-      <text class="fig-lab" x="659" y="108">AFTER</text>
-      <g class="stv">
-        <line x1="2" y1="30" x2="890" y2="30"/><line x1="2" y1="44" x2="890" y2="44"/>
-        <line x1="2" y1="58" x2="890" y2="58"/><line x1="2" y1="72" x2="890" y2="72"/>
-        <line x1="2" y1="86" x2="890" y2="86"/>
-      </g>
-      <line class="barline" x1="2" y1="30" x2="2" y2="86"/>
-      <path class="clef" transform="translate(18,14) scale(0.83)" d="M15 80 C1 80,-3 68,9 62 C29 52,41 35,40 20 C39 7,31 1,25 4 C17 8,15 21,19 33 C25 48,34 62,38 75 C43 88,35 97,27 96 C20 95,19 87,23 84"/>
+    <!-- Every part is defined once in <defs> and placed with <use>. To remove an
+         icon, delete its <use> line — the definition stays put. To move one,
+         change its x and y. Nothing here is a single welded drawing. -->
+    <div class="bar-wrap">
+      <svg class="bar-fig" viewBox="0 8 900 81" role="img"
+           aria-label="A musical stave in two bars. The first has a key signature made of admin icons; the second contains only a rest.">
+        <defs>
 
-      <!-- bar 1 — key signature, in the order sharps are written: F C G D A E B -->
-      <g class="ink" fill="none" stroke-linejoin="round" stroke-linecap="round">
-        <g transform="translate(95,30)"><rect x="-10" y="-7" width="20" height="14" rx="2"/><path d="M-10 -6L0 2L10 -6"/></g>
-        <g transform="translate(143,51)"><rect x="-9" y="-8" width="18" height="16" rx="2"/><path d="M-9 -3h18M-4 -11v5M4 -11v5"/></g>
-        <g transform="translate(191,23)"><circle cx="0" cy="0" r="9"/><path d="M0 -5v5l4 2"/></g>
-        <g transform="translate(239,44)"><circle cx="0" cy="0" r="9"/><path d="M4 5H-4m1 0v-6m-3 0h6m-3 0c0-5 5-5.5 6-1.5"/></g>
-        <g transform="translate(287,65)"><rect x="-8" y="-10" width="16" height="20" rx="2"/><path d="M-4 -4h8M-4 1h8M-4 6h5"/></g>
-        <g transform="translate(335,37)"><rect x="-9" y="-8" width="18" height="16" rx="3"/><path d="M-5 0l4 4 7-9"/></g>
-        <g transform="translate(383,58)"><rect x="-9" y="-5" width="18" height="13" rx="2"/><path d="M-9 -5v-3h7l2 3"/></g>
-      </g>
+          <!-- structure -->
+          <g id="fig-stave">
+            <line x1="2" y1="30" x2="890" y2="30"/><line x1="2" y1="44" x2="890" y2="44"/>
+            <line x1="2" y1="58" x2="890" y2="58"/><line x1="2" y1="72" x2="890" y2="72"/>
+            <line x1="2" y1="86" x2="890" y2="86"/>
+          </g>
+          <g id="fig-bar"><line x1="0" y1="30" x2="0" y2="86"/></g>
+          <g id="fig-end">
+            <line class="barline" x1="0" y1="30" x2="0" y2="86"/>
+            <rect class="barline-thick" x="7" y="30" width="5" height="56"/>
+          </g>
 
-      <line class="barline" x1="440" y1="30" x2="440" y2="86"/>
+          <!-- F clef, Bravura (SIL OFL). SMuFL: 1 em = 4 staff spaces, so at
+               14px spacing the scale is 56/1000. y is flipped, font-up to SVG-down. -->
+          <g id="fig-clef"><path class="fg" transform="scale(0.056,-0.056)" d="M8 -635C13 -635 19 -633 25 -630C271 -510 531 -332 531 -28C531 146 425 262 252 262C78 262 0 135 0 39C0 -41 42 -110 123 -110C186 -110 229 -66 229 -4C229 60 182 100 133 100C106 100 96 93 83 93C70 93 67 101 67 111C67 151 127 224 229 224C335 224 381 120 381 -37C381 -316 243 -472 10 -605C1 -610 -5 -615 -5 -623C-5 -629 -1 -635 8 -635ZM629 70C660 70 684 94 684 125C684 156 660 180 629 180C598 180 574 156 574 125C574 94 598 70 629 70ZM630 -179C661 -179 684 -156 684 -125C684 -94 661 -71 630 -71C599 -71 576 -94 576 -125C576 -156 599 -179 630 -179Z"/></g>
 
-      <!-- bar 2 — nothing but a rest. A whole rest hangs from the fourth line,
-           and sits centred in the bar it silences: (440+878)/2 - 34/2 = 642 -->
-      <rect class="rest" x="642" y="44" width="34" height="11"/>
+          <g id="fig-rest"><rect class="rest" x="-17" y="0" width="34" height="11"/></g>
 
-      <!-- final double barline — thin, then thick -->
-      <line class="barline" x1="878" y1="30" x2="878" y2="86"/>
-      <rect class="barline-thick" x="885" y="30" width="5" height="56"/>
-    </svg>
+          <!-- icons. Each begins with a .ko shape in the section colour, so the
+               stave lines stop at the icon instead of running through it. -->
+          <g id="ic-mail">
+            <rect class="ko" x="-13" y="-10" width="26" height="20" rx="3"/>
+            <rect class="fg" x="-11" y="-8" width="22" height="16" rx="2.5"/>
+            <path class="ko-line" d="M-11 -7 L0 2 L11 -7"/>
+          </g>
+          <g id="ic-cal">
+            <rect class="ko" x="-12" y="-11" width="24" height="22" rx="3"/>
+            <rect class="fg" x="-10" y="-9" width="20" height="18" rx="2.5"/>
+            <path class="ko-line" d="M-10 -3.5H10"/>
+            <circle class="ko" cx="-4.5" cy="2.5" r="1.5"/>
+            <circle class="ko" cx="0" cy="2.5" r="1.5"/>
+            <circle class="ko" cx="4.5" cy="2.5" r="1.5"/>
+          </g>
+          <g id="ic-clock">
+            <circle class="ko" r="12"/>
+            <circle class="fg" r="9.5"/>
+            <path class="ko-line" d="M0 -5V0.5L4 2.5"/>
+          </g>
+          <g id="ic-money">
+            <circle class="ko" r="12"/>
+            <circle class="fg" r="9.5"/>
+            <text class="ko-text" x="0" y="5" font-size="15">£</text>
+          </g>
+          <g id="ic-doc">
+            <rect class="ko" x="-10" y="-13" width="20" height="26" rx="3"/>
+            <rect class="fg" x="-8" y="-11" width="16" height="22" rx="2"/>
+            <path class="ko-line" d="M-4.5 -5H4.5M-4.5 0H4.5M-4.5 5H1.5"/>
+          </g>
+          <g id="ic-check">
+            <rect class="ko" x="-12" y="-11" width="24" height="22" rx="4"/>
+            <rect class="fg" x="-10" y="-9" width="20" height="18" rx="4"/>
+            <path class="ko-line" d="M-5 0.5L-1.5 4L5.5 -4"/>
+          </g>
+          <g id="ic-folder">
+            <rect class="ko" x="-12" y="-11" width="24" height="24" rx="3"/>
+            <path class="fg" d="M-10 -5a2 2 0 0 1 2 -2h5l2 3h9a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z"/>
+          </g>
+
+        </defs>
+
+        <use class="stv" href="#fig-stave"/>
+        <use class="barline" href="#fig-bar" x="2"/>
+        <use href="#fig-clef" x="18" y="44"/>
+
+        <!-- bar 1 — a key signature of admin, in the order sharps are written -->
+        <use href="#ic-mail"   x="95"  y="30"/>
+        <use href="#ic-cal"    x="143" y="51"/>
+        <use href="#ic-clock"  x="191" y="23"/>
+        <use href="#ic-money"  x="239" y="44"/>
+        <use href="#ic-doc"    x="287" y="65"/>
+        <use href="#ic-check"  x="335" y="37"/>
+        <use href="#ic-folder" x="383" y="58"/>
+
+        <use class="barline" href="#fig-bar" x="440"/>
+
+        <!-- bar 2 — nothing but a rest, centred in the bar it silences -->
+        <use href="#fig-rest" x="659" y="44"/>
+
+        <use href="#fig-end" x="878"/>
+      </svg>
+
+      <!-- labels are HTML, not SVG text: they can be restyled, translated or
+           deleted without touching the drawing. Positioned on the bar centres. -->
+      <p class="bar-labels">
+        <span>Before</span>
+        <span>After</span>
+      </p>
+    </div>
   </div>
 </section>
 
 <section id="start">
   <div class="shell">
-    <h2 class="sec-h">How It Works</h2>
+    <h2 class="sec-h">How we work</h2>
 
     <div class="states">
 
@@ -184,46 +244,46 @@
     <div class="flow">
 
       <div class="flow-node">
-        <h3>Let's start with a conversation</h3>
-        <p>About what's actually eating your time.</p>
+        <h3>Discovery</h3>
+        <p>We talk about what's eating your time.</p>
       </div>
 
       <div class="flow-split">
         <div class="flow-branches">
           <div class="flow-branch">
-            <h3>You have a system you like</h3>
-            <p>I keep it running.</p>
+            <h3>Starting from scratch?</h3>
+            <p>We'll build the workflow that works for you.</p>
           </div>
           <div class="flow-branch">
-            <h3>Starting from scratch</h3>
-            <p>We work out the right way, then build it.</p>
+            <h3>Got a system you like?</h3>
+            <p>We'll keep it running, and refine it over time.</p>
           </div>
         </div>
       </div>
 
       <div class="flow-node">
-        <h3>A proposal</h3>
+        <h3>The proposal</h3>
         <p>Scope, rhythm and cost, in writing.</p>
       </div>
 
       <div class="flow-node">
-        <h3>We begin</h3>
-        <p>Nothing starts until you're happy with it.</p>
+        <h3>Kick-off</h3>
+        <p>You get your time back.</p>
       </div>
 
-      </div>
+    </div>
   </div>
 </section>
 
 <section class="alt stance">
   <div class="shell">
-    <p>You're not hiring a generalist VA who happens to like music, or a consultant who's never been on stage. You're hiring someone who walked the same road as you.</p>
+    <p>Built by a musician. Not a developer.</p>
     <a class="more" href="about.html">More about my background →</a>
   </div>
 </section>
 
 
-<section id="trusted">
+<section id="trusted" class="tight">
   <div class="shell">
     <h2 class="sec-h">Trusted by</h2>
     <div class="trust-logos">

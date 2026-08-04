@@ -54,8 +54,8 @@
   --nav-h:72px;
 
   /* type scale — every step has one job */
-  --t-micro:11.5px;   /* uppercase labels */
-  --t-small:13.5px;   /* nav, footer */
+  --t-micro:11.5px;   /* labels inside a component */
+  --t-small:13.5px;   /* nav, footer, page eyebrows */
   --t-body:16.5px;    /* all body copy */
   --t-lead:19px;      /* lead paragraphs */
   --t-h3:21px;        /* card titles */
@@ -108,7 +108,14 @@ footer a, .closing a.mail{
    ------------------------------------------------------------- */
 .shell{max-width:var(--measure);margin:0 auto;padding:0 40px;}
 
-section{padding:var(--s-8) 0;}
+/* --s-7, not --s-8. Every section pads top and bottom, so at a colour boundary
+   the two stack and you see 192px of empty band rather than 96. 72 + 72 = 144
+   is a boundary you can read as one gap. */
+section{padding:var(--s-7) 0;}
+
+/* sections with little in them get less. The stance is one line and a link; a
+   full section's padding around it left it marooned. */
+.tight{padding:var(--s-6) 0;}
 .alt{background:var(--sand);}
 
 /* PAGE MODIFIER — reading measure.
@@ -219,18 +226,12 @@ footer a:hover{color:var(--terracotta);}
 /* hero — type only, no portrait */
 .hero{
   text-align:center;
-  padding:clamp(88px,12vw,136px) 0 clamp(96px,13vw,144px);
+  padding:clamp(88px,12vw,136px) 0 clamp(72px,9vw,104px);
 }
 
 .eyebrow{
-  font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
-  color:var(--terracotta);margin-bottom:26px;
-}
-/* the homepage eyebrow carries the descriptor, not a page label — it is the only
-   line that says what the business is, so it is set larger than the About and
-   Legal eyebrows. Wider type needs less tracking to hold together. */
-.hero .eyebrow{
-  font-size:var(--t-small);letter-spacing:0.22em;margin-bottom:22px;
+  font-size:var(--t-small);letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--terracotta);margin-bottom:var(--s-3);
 }
 /* 24ch is the width at which this headline lands on two lines instead of three.
    17ch and 20ch both broke it three ways — the earlier widening changed where
@@ -264,8 +265,10 @@ footer a:hover{color:var(--terracotta);}
    longer heading can't run the full 1080px. text-wrap:balance is the safety
    net — anything that does wrap splits evenly instead of orphaning a word.
    Ignored by older browsers, which simply wrap as before. */
+/* sentence case, and a step up from --t-h2. Title Case in Marcellus stacks a
+   lot of capitals in a serif, which was most of the heaviness. */
 .sec-h{
-  font-size:var(--t-h2);color:var(--olive);
+  font-size:32px;color:var(--olive);
   margin:0 auto var(--s-6);max-width:32ch;text-align:center;
   text-wrap:balance;
 }
@@ -280,22 +283,52 @@ footer a:hover{color:var(--terracotta);}
 .more:hover{color:var(--terracotta);border-color:var(--terracotta);}
 
 /* the whole joke in one system: a key signature of admin, then a bar of rest */
-.bar-fig{display:block;width:100%;max-width:720px;height:auto;margin:0 auto;}
-.bar-fig .stv{stroke:var(--olive);stroke-width:1;opacity:.4;}
-.bar-fig .ink{stroke:var(--olive);stroke-width:1.5;}
-.bar-fig .clef{
-  fill:none;stroke:var(--olive);stroke-width:3.4;
-  stroke-linecap:round;stroke-linejoin:round;
+/* ---- the notation figure ----
+   Built from parts: every piece is a <g id> in <defs>, placed with <use>.
+   Deleting an icon is deleting one <use> line.
+
+   --fig-bg is the colour the icons knock out of the stave with. It has to match
+   whatever section the figure sits in — change it in one place, not seven. */
+.bar-fig{
+  display:block;width:100%;max-width:720px;height:auto;margin:0 auto;
+  --fig-bg:var(--sand);
 }
+.bar-fig .stv{stroke:var(--olive);stroke-width:1;opacity:.4;}
 .bar-fig .barline{stroke:var(--olive);stroke-width:1.4;opacity:.7;}
 .bar-fig .barline-thick{fill:var(--olive);opacity:.7;}
 .bar-fig .rest{fill:var(--terracotta);}
-/* 14 units, not 11 — the figure renders at 720px inside a 900-unit viewBox, so
-   SVG units land at 0.8x. 14 gives roughly 11px on screen, matching --t-micro. */
-.bar-fig .fig-lab{
-  font-family:'Jost',sans-serif;font-size:14px;font-weight:400;
-  letter-spacing:3px;fill:var(--terracotta);text-anchor:middle;
+
+/* three roles, and only three: the icon body, the knockout behind it, and the
+   detail drawn back out of the body in the knockout colour */
+.bar-fig .fg{fill:var(--olive);}
+.bar-fig .ko{fill:var(--fig-bg);}
+.bar-fig .fg-line{
+  fill:none;stroke:var(--olive);stroke-width:2;stroke-linecap:round;
 }
+.bar-fig .ko-line{
+  fill:none;stroke:var(--fig-bg);stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+/* the £ is the real glyph from Jost rather than nine hand-drawn beziers, which
+   at 19px across read as a smudge */
+.bar-fig .ko-text{
+  fill:var(--fig-bg);font-family:'Jost',sans-serif;font-weight:400;
+  text-anchor:middle;
+}
+
+/* labels are HTML now. Placed on the true bar centres — 221 and 659 of the 900
+   viewBox — rather than at a rough 25% and 75%. */
+.bar-wrap{margin-top:var(--s-8);}
+.bar-labels{
+  position:relative;max-width:720px;margin:var(--s-2) auto 0;height:1.4em;
+}
+.bar-labels span{
+  position:absolute;transform:translateX(-50%);
+  font-size:var(--t-micro);letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--terracotta);
+}
+.bar-labels span:nth-child(1){left:24.6%;}
+.bar-labels span:nth-child(2){left:73.2%;}
 
 /* ---- how it works: two states across the top, the process left to right ----
    States answer "what changes", the diagram answers "how" — outcome first,
@@ -331,7 +364,7 @@ footer a:hover{color:var(--terracotta);}
 .shift-after li{color:var(--olive);}
 .shift-after li::before{background:var(--terracotta);}
 
-.stance{text-align:center;padding:var(--s-7) 0;}
+.stance{text-align:center;padding:var(--s-6) 0;}
 .stance p{
   font-size:var(--t-statement);color:var(--olive);
   line-height:1.45;max-width:34ch;margin:0 auto;
@@ -366,7 +399,7 @@ footer a:hover{color:var(--terracotta);}
 }
 
 .pkg-more{
-  margin:var(--s-5) 0 0;
+  margin:var(--s-6) 0 0;
   text-align:center;font-size:var(--t-body);color:var(--ink-soft);
 }
 .pkg-more a{
@@ -453,8 +486,10 @@ footer a:hover{color:var(--terracotta);}
 /* =============================================================
    7 · Closing block — homepage and about
    ============================================================= */
-.closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-8) 0;}
-.closing h2{font-size:var(--t-h2);margin-bottom:20px;}
+/* --s-6, not --s-8. Two cards holding six short lines don't need 96px of olive
+   above and below them; the block was ~400px of colour for very little. */
+.closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-6) 0;}
+.closing h2{font-size:var(--t-h2);margin-bottom:var(--s-3);}
 .closing p{color:#C7CEBA;max-width:46ch;margin:0 auto var(--s-5);}
 .closing a.mail{
   font-family:'Marcellus',serif;font-size:var(--t-h3);color:var(--bone);text-decoration:none;
@@ -494,7 +529,10 @@ footer a:hover{color:var(--terracotta);}
 /* .head is shared with the legal pages, so anything specific to About
    is scoped — otherwise max-width:16ch would clamp "Privacy Policy" too. */
 .head{padding:var(--s-8) 0 0;}
-.head h1{font-size:var(--t-h1);margin-bottom:var(--s-3);}
+/* a step below the homepage hero, deliberately. --t-h1 tops out at 54px and the
+   hero was brought down to 48 — which left every interior page with a bigger
+   headline than the homepage. The hero should be the largest type on the site. */
+.head h1{font-size:clamp(30px,3.6vw,42px);margin-bottom:var(--s-3);}
 /* 20ch, not 16ch. At 16ch this headline broke three ways — "I came to /
    operations from / the stage." — which is one line more than it needs.
    18ch is the exact threshold; 20 leaves room if the wording changes. */
@@ -504,7 +542,7 @@ footer a:hover{color:var(--terracotta);}
    a mistake. The 96px below keeps the boundary clear of the text. */
 .portrait-row{
   display:grid;grid-template-columns:0.8fr 1.2fr;
-  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 var(--s-8);
+  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 var(--s-6);
 }
 .arch{
   width:100%;aspect-ratio:3/4;
@@ -733,6 +771,6 @@ body.page-blog{--measure:860px;}
   .pkg-more a{white-space:nowrap;}
   .ways{grid-template-columns:1fr;}
 
-  section{padding:70px 0;}
+  section{padding:56px 0;}
   footer{flex-direction:column;gap:8px;}
 }
