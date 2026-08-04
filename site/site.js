@@ -50,42 +50,6 @@
   }
 
   /* ---------------------------------------------------------
-     Package picker — pick from the list, detail shows alongside
-     --------------------------------------------------------- */
-  var tabs   = Array.prototype.slice.call(document.querySelectorAll('.pkg-tab'));
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.pkg-panel'));
-
-  if (tabs.length && tabs.length === panels.length) {
-    var pick = function (i) {
-      tabs.forEach(function (t, j) {
-        var on = j === i;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        panels[j].hidden = !on;
-      });
-    };
-
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { pick(i); });
-
-      t.addEventListener('keydown', function (e) {
-        var next = null, last = tabs.length - 1;
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = i === last ? 0 : i + 1;
-        if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  next = i === 0 ? last : i - 1;
-        if (e.key === 'Home') next = 0;
-        if (e.key === 'End')  next = last;
-        if (next !== null) {
-          e.preventDefault();
-          pick(next);
-          tabs[next].focus();
-        }
-      });
-    });
-
-    pick(0);
-  }
-
-  /* ---------------------------------------------------------
      Scroll spy — highlights the section you're currently in
      --------------------------------------------------------- */
   var spyLinks = Array.prototype.slice.call(

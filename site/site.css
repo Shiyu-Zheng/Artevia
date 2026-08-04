@@ -294,6 +294,38 @@ footer a:hover{color:var(--terracotta);}
   letter-spacing:3px;fill:var(--terracotta);text-anchor:middle;
 }
 
+/* ---- how it works: the process beside the outcome ----
+   Diagram on one side, both states stacked on the other. The section had a tall
+   centred diagram in a lot of empty space; this fills the width and lets the
+   two halves explain each other — here's the process, here's what it changes.
+   The states are centred against the diagram's height so neither floats. */
+.journey{
+  display:grid;grid-template-columns:minmax(0,1.45fr) minmax(240px,1fr);
+  gap:var(--s-6);align-items:center;
+}
+.journey .flow{max-width:none;}
+.states{display:flex;flex-direction:column;gap:var(--s-5);}
+
+.shift-col h3{
+  font-size:var(--t-micro);letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--terracotta);margin-bottom:var(--s-3);
+}
+.shift-col ul{list-style:none;}
+.shift-col li{
+  font-size:var(--t-body);line-height:1.5;
+  padding:0 0 12px 15px;position:relative;
+}
+.shift-col li:last-child{padding-bottom:0;}
+.shift-col li::before{
+  content:"";position:absolute;left:0;top:12px;
+  width:6px;height:1px;background:var(--sand-deep);
+}
+/* the destination reads stronger than the origin — same size, more weight of
+   colour, so the eye travels left to right without being told to */
+.shift-now li{color:var(--ink-soft);}
+.shift-after li{color:var(--olive);}
+.shift-after li::before{background:var(--terracotta);}
+
 /* the figure now closes the services section rather than introducing it — the
    picker says what the work is, then the stave shows the point of it */
 .bar-fig{margin-top:var(--s-7);}
@@ -306,87 +338,36 @@ footer a:hover{color:var(--terracotta);}
 }
 .stance .more{margin-top:var(--s-4);}
 
-/* ---- package picker ---- */
-/* no align-items:start — both columns stretch to the taller one (the tab stack),
-   which is what lets the ask line drop to the foot of the panel column and
-   finish level with the last tab. */
-.pkg-tabs{
-  display:grid;grid-template-columns:minmax(210px,27%) 1fr;
-  gap:var(--s-5);
+/* ---- the six areas, all open ----
+   This was a tabbed picker. It was right when each panel held a package name,
+   a duration, a promise, five deliverables and a "you keep" line — sixty-odd
+   words, far too much to show six of. The content then shrank to a heading and
+   three to five items of two or three words, at which point six tabs, ARIA
+   wiring, a JS handler and eighty lines of CSS existed to hide seventy words,
+   and the densest section on the page displayed the least. */
+.areas{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--s-2);
 }
-.pkg-col{display:flex;flex-direction:column;}
-.pkg-list{display:flex;flex-direction:column;gap:4px;}
+.area{
+  background:var(--bone);border-radius:16px;
+  padding:var(--s-3) var(--s-3) var(--s-4);
+}
+.area h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
+.area ul{list-style:none;}
+.area li{
+  font-size:var(--t-body);line-height:1.5;color:var(--ink-soft);
+  padding:0 0 9px 15px;position:relative;
+}
+.area li:last-child{padding-bottom:0;}
+.area li::before{
+  content:"";position:absolute;left:0;top:12px;
+  width:6px;height:1px;background:var(--terracotta);
+}
 
-/* three states, deliberately far apart:
-   rest = outlined · hover = tinted + arrow moves · active = filled + accent */
-.pkg-tab{
-  appearance:none;cursor:pointer;font:inherit;text-align:left;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  padding:15px 16px 15px 17px;
-  background:transparent;
-  border:1px solid var(--line);
-  border-left:3px solid var(--sand-deep);
-  border-radius:10px;
-  transition:background .18s, border-color .18s, box-shadow .18s;
-}
-.pkg-tab .tab-name{
-  font-family:'Marcellus',serif;font-size:var(--t-body);
-  color:var(--ink-soft);line-height:1.35;transition:color .18s;
-}
-.pkg-tab .tab-arrow{
-  flex:0 0 auto;width:7px;height:7px;
-  border-right:1.7px solid var(--sand-deep);
-  border-top:1.7px solid var(--sand-deep);
-  transform:rotate(45deg);
-  transition:border-color .18s, transform .18s;
-}
-.pkg-tab:hover{
-  background:var(--bone);
-  border-color:var(--sand-deep);
-  border-left-color:var(--olive-soft);
-}
-.pkg-tab:hover .tab-name{color:var(--olive);}
-.pkg-tab:hover .tab-arrow{border-color:var(--olive-soft);transform:rotate(45deg) translate(2px,-2px);}
-.pkg-tab[aria-selected="true"]{
-  background:var(--olive);
-  border-color:var(--olive);
-  border-left-color:var(--terracotta);
-  box-shadow:0 1px 10px rgba(46,42,40,0.10);
-}
-.pkg-tab[aria-selected="true"] .tab-name{color:var(--bone);}
-.pkg-tab[aria-selected="true"] .tab-arrow{border-color:var(--bone);transform:rotate(45deg) translate(2px,-2px);}
-.pkg-tab:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
-
-.pkg-stage{background:var(--bone);border-radius:26px;}
-.pkg-panel{padding:38px 42px 34px;}
-.pkg-panel:focus{outline:none;}
-.pkg-head{
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-2);
-  margin-bottom:var(--s-2);
-}
-.pkg-head h3{font-size:var(--t-h3);color:var(--olive);}
-.pkg-dur{
-  font-size:var(--t-micro);letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--terracotta);
-}
-.pkg-promise{
-  font-size:var(--t-lead);color:var(--ink-soft);line-height:1.45;
-  margin-bottom:var(--s-4);max-width:46ch;
-}
-.pkg-panel ul{margin:0;padding-left:20px;}
-.pkg-panel li{font-size:var(--t-body);color:var(--ink-soft);line-height:1.55;margin-bottom:9px;}
-.pkg-keep{
-  margin-top:var(--s-4);padding-top:var(--s-3);
-  border-top:1px solid var(--line);
-  font-size:var(--t-small);color:var(--ink-soft);line-height:1.55;
-}
-.pkg-keep strong{font-weight:400;color:var(--olive);}
-/* margin-top:auto is the whole trick — it eats the leftover height in the flex
-   column and parks this line on the baseline of the tab stack. The padding is a
-   floor, for when the panel is tall enough that there's nothing spare. */
 .pkg-more{
-  margin:auto 0 0;padding:var(--s-3) 0 0;
-  text-align:left;font-size:var(--t-body);color:var(--ink-soft);
+  margin:var(--s-5) 0 0;
+  text-align:center;font-size:var(--t-body);color:var(--ink-soft);
 }
 .pkg-more a{
   color:var(--olive);text-decoration:none;
@@ -404,18 +385,24 @@ footer a:hover{color:var(--terracotta);}
    read as a diagram rather than a stack of banners. max-width keeps them inside
    the column on a phone; the auto margins keep them centred, which matters
    because the connector below is drawn at 50% of the box. */
+/* boxes stay — tried without them, the diagram lost too much definition.
+   width:max-content keeps each step as wide as its own text, and centred,
+   because the connector below is drawn at 50% of the block. */
 .flow-node,
 .flow-branch{
   width:max-content;max-width:100%;margin-inline:auto;
   background:var(--bone);
   border:1px solid var(--line);
   border-radius:14px;
-  padding:var(--s-3) var(--s-4);
+  padding:var(--s-2) var(--s-3);
 }
+/* stepped down from --t-h3 / --t-body now the flow shares its row with two
+   columns of text. At the old size the diagram fought them for attention; at
+   this size it reads as the mechanism between them, which is its job. */
 .flow-node h3,
-.flow-branch h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:6px;}
+.flow-branch h3{font-size:var(--t-body);color:var(--olive);margin-bottom:5px;}
 .flow-node p,
-.flow-branch p{font-size:var(--t-body);color:var(--ink-soft);max-width:46ch;margin:0 auto;}
+.flow-branch p{font-size:var(--t-small);color:var(--ink-soft);max-width:42ch;margin:0 auto;}
 
 /* vertical connector into every block after the first */
 .flow > * + *{position:relative;margin-top:var(--s-5);}
@@ -439,32 +426,23 @@ footer a:hover{color:var(--terracotta);}
 .flow-branches{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);}
 .flow-branches::after{top:100%;border-bottom:1px solid var(--line);}
 
-/* quiet statements */
-.facts{padding:var(--s-6) 0;}
-.facts-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6);
-  max-width:840px;margin:0 auto;
-}
-.facts-grid p{
-  font-size:var(--t-body);color:var(--ink-soft);line-height:1.6;
-  padding-left:var(--s-3);border-left:1px solid var(--line);
-}
 
 /* trusted by */
+/* two slots, not four. Four boxes reading "Logo" said no clients louder than an
+   absent section would have; a real pair says more than a padded row. */
 .trust-logos{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  max-width:840px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
+  max-width:520px;margin:0 auto;
 }
+/* sand, not bone — this section is no longer .alt, so a bone slot on a bone
+   background would disappear. Flipping the section broke the sand run that had
+   the stance and Trusted by merging into one undifferentiated band. */
 .trust-slot{
-  background:var(--bone);border:1px solid var(--line);border-radius:16px;
+  background:var(--sand);border:1px solid var(--line);border-radius:16px;
   height:100px;padding:18px;
   display:flex;align-items:center;justify-content:center;
 }
 .trust-slot img{max-height:54px;max-width:100%;object-fit:contain;}
-.trust-slot .ph{
-  font-size:var(--t-micro);letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--sand-deep);
-}
 
 
 /* =============================================================
@@ -516,8 +494,6 @@ footer a:hover{color:var(--terracotta);}
    operations from / the stage." — which is one line more than it needs.
    18ch is the exact threshold; 20 leaves room if the wording changes. */
 .page-about .head h1{max-width:20ch;text-wrap:balance;}
-.head .intro{font-size:var(--t-lead);color:var(--ink-soft);max-width:60ch;}
-
 /* bottom padding is deliberate: without it the sand of .beliefs starts flush
    against the last line of the education block, and the colour change reads as
    a mistake. The 96px below keeps the boundary clear of the text. */
@@ -541,7 +517,7 @@ footer a:hover{color:var(--terracotta);}
 
 .edu-mini{margin-top:var(--s-5);}
 /* terracotta, not olive-soft — every other micro label on the site is
-   terracotta (.eyebrow, .pkg-dur). olive-soft is footer and secondary text. */
+   terracotta. olive-soft is footer and secondary text. */
 .edu-mini .lab{
   font-size:var(--t-micro);letter-spacing:0.28em;text-transform:uppercase;
   color:var(--terracotta);margin-bottom:var(--s-1);
@@ -592,6 +568,96 @@ footer a:hover{color:var(--terracotta);}
 
 
 /* =============================================================
+   9b · Writing — index and posts
+   -------------------------------------------------------------
+   Posts reuse .doc from the legal pages, which already has the
+   right measure, list markers and visible link styling for
+   long-form prose. Only the index needs rules of its own.
+   ============================================================= */
+body.page-blog{--measure:860px;}
+
+.post-list{list-style:none;margin:var(--s-6) 0 0;}
+.post-item{border-top:1px solid var(--line);}
+.post-item:last-child{border-bottom:1px solid var(--line);}
+.post-item a{
+  display:block;padding:var(--s-4) 0;text-decoration:none;
+  transition:opacity .25s;
+}
+.post-item a:hover{opacity:.72;}
+.post-date{
+  display:block;font-size:var(--t-micro);letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--terracotta);margin-bottom:var(--s-1);
+}
+.post-item h2{font-size:var(--t-h3);color:var(--olive);margin-bottom:6px;}
+.post-item p{font-size:var(--t-body);color:var(--ink-soft);max-width:60ch;}
+
+/* the honest empty state — says what's coming rather than pretending
+   there's something here. Delete once the first post is up. */
+.post-empty{
+  margin:var(--s-6) 0 var(--s-8);
+  padding:var(--s-5) 0 0;border-top:1px solid var(--line);
+}
+.post-empty p{font-size:var(--t-lead);color:var(--ink-soft);max-width:56ch;}
+.post-empty .more{margin-top:var(--s-4);}
+
+/* a post's opening paragraph carries more weight than its body */
+.standfirst{
+  font-size:var(--t-lead);color:var(--olive);line-height:1.5;
+  margin-bottom:var(--s-4);
+}
+.post-end{margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--line);}
+
+
+/* =============================================================
+   9c · Enquiry form
+   -------------------------------------------------------------
+   Plain HTML posting to Formspree. No script, no CAPTCHA, so the
+   page still makes no third-party request until someone submits.
+   ============================================================= */
+.enquiry{max-width:560px;margin:var(--s-6) 0 0;}
+.field{margin-bottom:var(--s-4);}
+.field label{
+  display:block;margin-bottom:var(--s-1);
+  font-size:var(--t-micro);letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--terracotta);
+}
+.field .opt{
+  letter-spacing:0.06em;text-transform:none;color:var(--olive-soft);
+}
+.field input,
+.field select,
+.field textarea{
+  width:100%;font:inherit;font-size:var(--t-body);color:var(--ink);
+  background:var(--bone);
+  border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px;
+  transition:border-color .2s;
+}
+.field textarea{resize:vertical;line-height:1.6;}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  outline:none;border-color:var(--olive-soft);
+  box-shadow:0 0 0 3px rgba(110,120,96,0.12);
+}
+.field .hint{
+  margin-top:6px;font-size:var(--t-small);color:var(--olive-soft);
+}
+.enquiry button{cursor:pointer;background:none;margin-top:var(--s-2);}
+
+/* the honeypot has to exist in the DOM and never be seen or focused */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+.enquiry-alt{
+  margin-top:var(--s-6);padding-top:var(--s-4);
+  border-top:1px solid var(--line);
+  font-size:var(--t-body);color:var(--ink-soft);
+}
+.enquiry-alt a{color:var(--olive);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;white-space:nowrap;}
+.enquiry-alt a:hover{color:var(--terracotta);border-color:var(--terracotta);}
+
+
+/* =============================================================
    10 · Responsive
    ============================================================= */
 @media (max-width:980px){
@@ -600,11 +666,9 @@ footer a:hover{color:var(--terracotta);}
 }
 
 @media (max-width:900px){
-  .pkg-tabs{grid-template-columns:1fr;gap:var(--s-4);}
-  .pkg-tab{padding:12px 0 12px 18px;}
-  .pkg-panel{padding:30px 26px 28px;}
-  .pkg-stage{border-radius:20px;}
-  .trust-logos{grid-template-columns:repeat(2,1fr);max-width:420px;}
+  .areas{grid-template-columns:1fr 1fr;}
+  .journey{grid-template-columns:1fr;gap:var(--s-6);}
+  .trust-logos{max-width:420px;}
 }
 
 @media (max-width:760px){
@@ -614,6 +678,7 @@ footer a:hover{color:var(--terracotta);}
 
 @media (max-width:700px){
   .shell{padding:0 22px;}
+  .areas{grid-template-columns:1fr;}
 
   /* only pages with a hamburger hide their inline links */
   .nav--menu .nav-links{display:none;}
@@ -622,7 +687,6 @@ footer a:hover{color:var(--terracotta);}
 
   .pkg-more a{white-space:nowrap;}
   .ways{grid-template-columns:1fr;}
-  .facts-grid{grid-template-columns:1fr;gap:var(--s-3);}
 
   /* stacked, a bracket makes no sense — plain connectors instead */
   .flow-branches{grid-template-columns:1fr;gap:var(--s-5);}
