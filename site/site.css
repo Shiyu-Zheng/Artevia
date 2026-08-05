@@ -353,7 +353,7 @@ footer a:hover{color:var(--terracotta);}
 .shift-col ul{list-style:none;}
 .shift-col li{
   font-size:var(--t-body);line-height:1.5;
-  padding:0 0 12px 15px;position:relative;
+  padding:0 0 var(--s-1) 15px;position:relative;
 }
 .shift-col li:last-child{padding-bottom:0;}
 .shift-col li::before{
@@ -386,11 +386,36 @@ footer a:hover{color:var(--terracotta);}
   background:var(--bone);border-radius:16px;
   padding:var(--s-3) var(--s-3) var(--s-4);
 }
-.area h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
+/* the sprite is markup only — it defines the symbols and draws nothing */
+.ic-sprite{display:none;}
+
+/* gap 8, not 11. Each icon carries about 3px of its own whitespace inside the
+   viewBox, so 11 rendered as ~14 and the mark drifted away from the word.
+   margin-bottom stays --s-2. Tried --s-3 on the theory that the title needed
+   more air than the gap between items — it doesn't. The title is Marcellus at
+   21px in olive with an icon beside it; nothing is going to mistake it for a
+   bullet, and 24px just opened a hole under it. */
+.area-head{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:var(--s-2);
+}
+/* outline, terracotta, hairline — the same 1.4px weight as the barlines and the
+   flow connectors, so the icons join the family rather than sitting on top of
+   it. Terracotta because it is the one colour with no field anywhere on the
+   page; six hairline marks is enough to register without shouting. */
+.area-ic{
+  width:22px;height:22px;flex:none;
+  fill:none;stroke:var(--terracotta);stroke-width:1.4;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.area-ic use{overflow:visible;}
+.area h3{font-size:var(--t-h3);color:var(--olive);margin-bottom:0;}
 .area ul{list-style:none;}
+/* 9px was off the 8px scale, and .shift-col li — the same construction on the
+   same page — used 12. Both are --s-1 now. */
 .area li{
   font-size:var(--t-body);line-height:1.5;color:var(--ink-soft);
-  padding:0 0 9px 15px;position:relative;
+  padding:0 0 var(--s-1) 15px;position:relative;
 }
 .area li:last-child{padding-bottom:0;}
 .area li::before{
@@ -498,14 +523,19 @@ footer a:hover{color:var(--terracotta);}
 }
 .closing a.mail:hover{border-color:var(--bone);}
 
+/* 580, not 640. Each card held a longest line of ~215px inside 264px of content
+   width, so both were carrying about 50px of slack — wide boxes with three
+   short things in them. */
 .ways{
   display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2);
-  max-width:640px;margin:0 auto;text-align:left;
+  max-width:580px;margin:0 auto;text-align:left;
 }
+/* even padding. It was 32 top, 24 sides and bottom — the extra 8px at the top
+   was doing nothing except making the card taller than it needed to be. */
 .way{
   background:rgba(247,241,236,0.07);
   border:1px solid rgba(247,241,236,0.18);
-  border-radius:20px;padding:var(--s-4) var(--s-3) var(--s-3);
+  border-radius:20px;padding:var(--s-3);
   display:flex;flex-direction:column;
 }
 .way h3{font-size:var(--t-h3);color:var(--bone);margin-bottom:var(--s-1);}

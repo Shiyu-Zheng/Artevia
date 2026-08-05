@@ -49,10 +49,25 @@
 <section class="alt" id="services">
   <div class="shell">
     <h2 class="sec-h">What I can take off your plate</h2>
+    <!-- Six outline marks, defined once and placed with <use>. Outline here
+         deliberately: the notation figure below uses filled icons, so the two
+         sets read as different kinds of thing. -->
+    <svg class="ic-sprite" aria-hidden="true" focusable="false"><defs>
+      <g id="ai-productions"><g transform="translate(-1.44 -3.08) scale(1.0968)"><path d="M4.5 9.5 L19.5 6 L20 8 L5 11.5 Z"/><path d="M12.2 10 V19"/><path d="M8 21.5 L12.2 19 L16.4 21.5"/></g></g>
+      <g id="ai-venues"><g transform="translate(0.67 0.67) scale(0.9444)"><path d="M4 20 V9 L12 4 L20 9 V20"/><path d="M3 20 H21"/><path d="M9.5 20 V14.5 a2.5 2.5 0 0 1 5 0 V20"/></g></g>
+      <g id="ai-inbox"><path d="M3.5 6 h17 v12 h-17 Z"/><path d="M3.5 7 L12 13.5 L20.5 7"/></g>
+      <g id="ai-systems"><g transform="translate(0.67 0.67) scale(0.9444)"><path d="M12 3 L21 7.5 L12 12 L3 7.5 Z"/><path d="M3 12 L12 16.5 L21 12"/><path d="M3 16.5 L12 21 L21 16.5"/></g></g>
+      <g id="ai-finance"><g transform="translate(0.67 0.67) scale(0.9444)"><path d="M6 3 h12 v18 l-3 -2 l-3 2 l-3 -2 l-3 2 Z"/><path d="M9.5 8.5 h5"/><path d="M9.5 12.5 h5"/></g></g>
+      <g id="ai-design"><g transform="translate(-0.97 -1.87) scale(1.1184)"><path d="M4 20 l1.4 -4.4 L16.2 4.8 a2.1 2.1 0 0 1 3 3 L8.4 18.6 Z"/><path d="M14.4 6.6 l3 3"/></g></g>
+    </defs></svg>
+
     <div class="areas">
 
       <div class="area">
-        <h3>Productions</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-productions"/></svg>
+          <h3>Productions</h3>
+        </div>
         <ul>
         <li>Timelines and run sheets</li>
         <li>Rehearsal scheduling</li>
@@ -62,7 +77,10 @@
       </div>
 
       <div class="area">
-        <h3>Venues</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-venues"/></svg>
+          <h3>Venues</h3>
+        </div>
         <ul>
         <li>Availability and quotes</li>
         <li>Riders and technical specs</li>
@@ -71,7 +89,10 @@
       </div>
 
       <div class="area">
-        <h3>Inbox &amp; Diary</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-inbox"/></svg>
+          <h3>Inbox &amp; Diary</h3>
+        </div>
         <ul>
         <li>Email triage</li>
         <li>Artist and partner correspondence</li>
@@ -81,7 +102,10 @@
       </div>
 
       <div class="area">
-        <h3>Systems</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-systems"/></svg>
+          <h3>Systems</h3>
+        </div>
         <ul>
         <li>Notion boards and databases</li>
         <li>Written procedures and checklists</li>
@@ -90,7 +114,10 @@
       </div>
 
       <div class="area">
-        <h3>Finance</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-finance"/></svg>
+          <h3>Finance</h3>
+        </div>
         <ul>
         <li>Budget and expense tracking</li>
         <li>Invoice preparation</li>
@@ -99,7 +126,10 @@
       </div>
 
       <div class="area">
-        <h3>Design</h3>
+        <div class="area-head">
+          <svg class="area-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ai-design"/></svg>
+          <h3>Design</h3>
+        </div>
         <ul>
         <li>Website design, domain and hosting</li>
         <li>Social media content</li>
