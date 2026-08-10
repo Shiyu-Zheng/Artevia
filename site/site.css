@@ -516,21 +516,31 @@ footer a:hover{color:var(--terracotta);}
 
 
 /* trusted by */
-/* two slots, not four. Four boxes reading "Logo" said no clients louder than an
-   absent section would have; a real pair says more than a padded row. */
+/* No boxes. These were bordered slots because they used to hold the word
+   "Logo" — a placeholder needs a box to be legible at all. Real logos don't:
+   a logo is already a shape, and putting a shape inside a box makes the box
+   read as the empty space around it rather than as a frame. It was also the
+   third set of bordered cards on one page, after the six areas and the two
+   contact panels. */
+/* flex, not a fixed two-column grid — more logos are expected. Wrapping and
+   centring means three, five or six need no change here; only the max-width
+   grows. A grid would leave an orphan on the last row. */
+/* No captions under these. Each logo already carries its own name, and a line
+   of our type underneath would both repeat it and, on a phone where the row
+   stacks, put a caption between two logos where it reads as a heading for the
+   next one rather than a label for the last. */
 .trust-logos{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
-  max-width:520px;margin:0 auto;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:var(--s-6);max-width:520px;margin:0 auto;
 }
-/* sand, not bone — this section is no longer .alt, so a bone slot on a bone
-   background would disappear. Flipping the section broke the sand run that had
-   the stance and Trusted by merging into one undifferentiated band. */
-.trust-slot{
-  background:var(--sand);border:1px solid var(--line);border-radius:16px;
-  height:100px;padding:18px;
-  display:flex;align-items:center;justify-content:center;
-}
-.trust-slot img{max-height:54px;max-width:100%;object-fit:contain;}
+.trust-slot{display:flex;align-items:center;justify-content:center;}
+.trust-slot img{max-width:100%;object-fit:contain;}
+
+/* Two shapes, two heights. A portrait lockup spends most of its height on the
+   mark and only ~8% on the name, so it needs more of it to carry the same
+   presence as a landscape one. 56 against 70 is the balance. */
+.trust-wide img{max-height:56px;}   /* landscape lockup — Chronos            */
+.trust-tall img{max-height:70px;}   /* portrait lockup — Duo, Little Keys    */
 
 
 /* =============================================================
@@ -813,7 +823,12 @@ body.page-blog{--measure:860px;}
 
 @media (max-width:900px){
   .areas{grid-template-columns:1fr 1fr;}
-  .trust-logos{max-width:420px;}
+  /* three logos won't sit in a row on a narrow screen. Wrapping is fine — but
+     shrink them first so it happens later, and tighten the gap so a wrapped
+     pair doesn't drift apart. */
+  .trust-logos{max-width:420px;gap:var(--s-4);}
+  .trust-wide img{max-height:46px;}
+  .trust-tall img{max-height:58px;}
 
   /* four columns stop fitting here. The flow turns back into a vertical
      sequence: connectors move from the left edge to the top, and the fork
