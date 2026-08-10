@@ -122,8 +122,12 @@ section{padding:var(--s-7) 0;}
    Long-form prose at 1080px runs to ~140 characters a line, which is
    unreadable. These pages keep their narrower measure; everything else
    about them follows the homepage. */
-body.page-about{--measure:900px;}
 body.page-legal{--measure:760px;}
+
+/* SECTION MODIFIER — 1000, between the 1080 homepage and the 900 this section
+   had as its own page. At 1000 the prose column lands at ~64 characters, which
+   is the measure the picture below is sized against. */
+#about .shell{max-width:1000px;}
 
 /* the nav bar spans the full width regardless of page measure */
 .nav .shell{max-width:1080px;}
@@ -237,11 +241,16 @@ footer a:hover{color:var(--terracotta);}
    17ch and 20ch both broke it three ways — the earlier widening changed where
    the breaks fell without removing one. balance keeps the two lines even, and
    stops a short orphan if the wording changes. */
+/* 30ch, not 24ch. The headline and the sub swapped places, and the new h1 is
+   68 characters against the old one's 49 — at 24ch it broke over three lines.
+   30ch brings it back to two, and balance keeps them even. */
 .hero h1{
   font-size:clamp(34px,4.2vw,48px);margin:0 auto 24px;
-  max-width:24ch;line-height:1.16;text-wrap:balance;
+  max-width:30ch;line-height:1.16;text-wrap:balance;
 }
-.hero h1 em{font-style:italic;color:var(--olive);}
+/* the italic followed "handled." down from the h1 into the sub */
+.hero h1 em,
+.hero-sub em{font-style:italic;color:var(--olive);}
 /* 62ch ~= 590px, just wider than the h1's 24ch measure and just wider than this
    sentence needs — so the headline takes two lines, the sub takes one, and both
    blocks are the same width. 40ch was set against the old narrower h1 and now
@@ -335,21 +344,30 @@ footer a:hover{color:var(--terracotta);}
    mechanism second. Running the flow horizontally uses the width the section
    already has instead of stacking into a tall thin column. */
 .states{
-  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);
   margin-bottom:var(--s-7);
 }
 
-/* filled, not outlined — the opposite construction to the diagram below, so
-   the two halves of the section don't read as the same kind of thing */
+/* A hairline, not a filled box. Two reasons. The six cards above are already
+   bordered blocks, and a second set directly below read as more of the same.
+   And these three sentences run 2, 4 and 3 lines — inside boxes the grid
+   stretches all three to the tallest, so the first carries ~50px of dead
+   space. A rule aligns the tops without making the difference visible. */
 .shift-col{
-  background:var(--sand);
-  border-radius:14px;
-  padding:var(--s-4);
+  border-top:1px solid var(--line);
+  padding-top:var(--s-3);
 }
 .shift-col h3{
   font-size:var(--t-micro);letter-spacing:0.22em;text-transform:uppercase;
   color:var(--terracotta);margin-bottom:var(--s-2);
 }
+.shift-col p{
+  font-size:var(--t-body);line-height:1.55;color:var(--ink-soft);
+}
+
+/* DEAD — these three columns were a two-column before/after list. The list
+   rules and the two shift-now / shift-after colour variants went with it.
+   Delete on the next clean-up pass. */
 .shift-col ul{list-style:none;}
 .shift-col li{
   font-size:var(--t-body);line-height:1.5;
@@ -364,12 +382,19 @@ footer a:hover{color:var(--terracotta);}
 .shift-after li{color:var(--olive);}
 .shift-after li::before{background:var(--terracotta);}
 
+/* LIVE again. Held "Built by a musician. Not a developer.", was briefly
+   replaced by the .beliefs block, and now holds the one-quote philosophy.
+   No heading above it — the statement is the whole section. */
 .stance{text-align:center;padding:var(--s-6) 0;}
+/* 38ch, not 34ch. The quote is two sentences of 36.6ch and 35.4ch. Anything
+   under 36.6ch breaks the first sentence across a line; anything over ~40ch
+   pulls "It's the" up onto line one and the break stops landing on the full
+   stop. 38ch = 529px sits in the middle of that window, so the two sentences
+   get a line each. Re-measure if the wording changes. */
 .stance p{
   font-size:var(--t-statement);color:var(--olive);
-  line-height:1.45;max-width:34ch;margin:0 auto;
+  line-height:1.45;max-width:38ch;margin:0 auto;text-wrap:balance;
 }
-.stance .more{margin-top:var(--s-4);}
 
 /* ---- the six areas, all open ----
    This was a tabbed picker. It was right when each panel held a package name,
@@ -514,8 +539,12 @@ footer a:hover{color:var(--terracotta);}
 /* --s-6, not --s-8. Two cards holding six short lines don't need 96px of olive
    above and below them; the block was ~400px of colour for very little. */
 .closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-6) 0;}
-.closing h2{font-size:var(--t-h2);margin-bottom:var(--s-3);}
+.closing h2{font-size:var(--t-h2);margin-bottom:var(--s-5);}
+/* DEAD — .closing p and .way p both styled the card descriptions, which are
+   gone. .closing a.mail was about.html's direct email link. Delete on the next
+   clean-up pass. */
 .closing p{color:#C7CEBA;max-width:46ch;margin:0 auto var(--s-5);}
+.way p{color:#9FAA90;font-size:var(--t-body);line-height:1.55;max-width:none;}
 .closing a.mail{
   font-family:'Marcellus',serif;font-size:var(--t-h3);color:var(--bone);text-decoration:none;
   border-bottom:1px solid rgba(251,248,243,0.4);padding-bottom:6px;
@@ -523,34 +552,41 @@ footer a:hover{color:var(--terracotta);}
 }
 .closing a.mail:hover{border-color:var(--bone);}
 
-/* 580, not 640. Each card held a longest line of ~215px inside 264px of content
-   width, so both were carrying about 50px of slack — wide boxes with three
-   short things in them. */
+/* 480, not 580. Each panel holds a heading and one short phrase, both centred,
+   and the widest of them is "Drop a message" at 151px. A 228px column leaves
+   29px either side — enough to breathe, not so much the box reads as empty.
+   Panels come out 228 x 140, which is close to a 1.6 landscape rectangle. */
 .ways{
-  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2);
-  max-width:580px;margin:0 auto;text-align:left;
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);
+  max-width:480px;margin:0 auto;
 }
-/* even padding. It was 32 top, 24 sides and bottom — the extra 8px at the top
-   was doing nothing except making the card taller than it needed to be. */
+/* radius 16, matching the six area cards rather than the 20 this used to
+   carry — the two sets of cards on the page now belong to one family.
+   Content is centred, so the slack sits evenly on both sides; left-aligned
+   was what made the old wider boxes look half-empty. */
 .way{
+  display:flex;flex-direction:column;align-items:center;
   background:rgba(247,241,236,0.07);
   border:1px solid rgba(247,241,236,0.18);
-  border-radius:20px;padding:var(--s-3);
-  display:flex;flex-direction:column;
+  border-radius:16px;padding:var(--s-5) var(--s-3);
+  text-decoration:none;
+  transition:background .25s,border-color .25s;
 }
-.way h3{font-size:var(--t-h3);color:var(--bone);margin-bottom:var(--s-1);}
-.way p{
-  color:#9FAA90;font-size:var(--t-body);line-height:1.55;
-  max-width:none;margin:0 0 var(--s-3);flex:1;
+.way:hover{
+  background:rgba(247,241,236,0.12);
+  border-color:rgba(247,241,236,0.34);
 }
+.way h3{font-size:var(--t-h3);color:var(--bone);margin-bottom:var(--s-2);}
+/* a span, not a link — the panel around it is the link. It keeps the underline
+   so the action still reads as clickable, and it responds to hover on the
+   panel rather than only on itself. */
 .way-btn{
-  align-self:flex-start;
   font-size:var(--t-small);letter-spacing:0.1em;
-  color:#C7CEBA;text-decoration:none;
+  color:#C7CEBA;
   border-bottom:1px solid rgba(247,241,236,0.3);padding-bottom:5px;
   transition:color .25s,border-color .25s;
 }
-.way-btn:hover{color:var(--bone);border-color:var(--bone);}
+.way:hover .way-btn{color:var(--bone);border-color:var(--bone);}
 
 
 /* =============================================================
@@ -563,27 +599,42 @@ footer a:hover{color:var(--terracotta);}
    hero was brought down to 48 — which left every interior page with a bigger
    headline than the homepage. The hero should be the largest type on the site. */
 .head h1{font-size:clamp(30px,3.6vw,42px);margin-bottom:var(--s-3);}
-/* 20ch, not 16ch. At 16ch this headline broke three ways — "I came to /
-   operations from / the stage." — which is one line more than it needs.
-   18ch is the exact threshold; 20 leaves room if the wording changes. */
-.page-about .head h1{max-width:20ch;text-wrap:balance;}
-/* bottom padding is deliberate: without it the sand of .beliefs starts flush
-   against the last line of the education block, and the colour change reads as
-   a mistake. The 96px below keeps the boundary clear of the text. */
+/* no padding of its own — this used to sit on about.html directly under .head,
+   where it needed its own. It now lives inside a <section>, which already pads
+   72px top and bottom. Adding more here doubles the gap at the colour boundary. */
+/* stretch, not start — and this is the important line in this block.
+   The picture has no aspect ratio of its own here: it is exactly as tall as
+   the text beside it, whatever the text says. Edit a paragraph in or out and
+   the two columns stay level on their own, with nothing to re-tune. That is
+   the whole point — a fixed ratio had to be recalculated every time the copy
+   moved, and was wrong within a day of being set.
+
+   0.78/1.22 sets the WIDTH only. Against the ~445px the current four
+   paragraphs and the education block occupy, it makes a 337 x 445 rectangle —
+   0.757, which is 3:4 to within a rounding error, so the crop is negligible.
+   If the copy ever grows a lot longer, narrow this split rather than letting
+   the picture turn into a column. */
 .portrait-row{
-  display:grid;grid-template-columns:0.8fr 1.2fr;
-  gap:var(--s-6);align-items:start;padding:var(--s-7) 0 var(--s-6);
+  display:grid;grid-template-columns:0.78fr 1.22fr;
+  gap:var(--s-6);align-items:stretch;
 }
-.arch{
-  width:100%;aspect-ratio:3/4;
-  border-radius:50% 50% 8px 8px / 42% 42% 4px 4px;
+/* was .arch — an arched top, like a proscenium. Now a plain rectangle with
+   soft corners. Renamed because a class called .arch that isn't an arch is a
+   trap for whoever reads this next. */
+.shot{
+  width:100%;height:100%;min-height:0;
+  border-radius:18px;
   background:var(--sand);border:1px solid var(--line);
   display:flex;align-items:center;justify-content:center;
   color:var(--olive-soft);font-size:var(--t-micro);
   letter-spacing:0.16em;text-transform:uppercase;
   overflow:hidden;
 }
-.arch img{width:100%;height:100%;object-fit:cover;}
+/* 40%, not the default 50%. Because the frame height now follows the text, the
+   crop is whatever's left over — and a centred crop takes it evenly off the
+   top and bottom. Her face sits in the upper half, so biasing up keeps the
+   headroom and spends the crop on the jumper instead. */
+.shot img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
 .portrait-row p{color:var(--ink-soft);}
 .portrait-row p + p{margin-top:var(--s-3);}
 .name{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
@@ -599,9 +650,11 @@ footer a:hover{color:var(--terracotta);}
 .edu-mini p + p{margin-top:var(--s-2);}
 .edu-mini strong{font-weight:400;color:var(--olive);}
 
-.beliefs{background:var(--sand);}
-.beliefs .inner{max-width:62ch;}
-.beliefs h2{font-size:var(--t-h2);color:var(--olive);margin-bottom:var(--s-4);}
+/* DEAD — the three-paragraph philosophy block this styled was cut down to the
+   single quote in .stance above. Widening it was measured first: 62ch to 82ch,
+   a third wider, saved exactly one line of seven. The length was the text, not
+   the measure. Delete on the next clean-up pass. */
+.beliefs .inner{max-width:62ch;margin:0 auto;}
 .beliefs p{color:var(--ink-soft);font-size:var(--t-body);}
 .beliefs p + p{margin-top:var(--s-3);}
 
@@ -785,8 +838,10 @@ body.page-blog{--measure:860px;}
 }
 
 @media (max-width:760px){
-  .portrait-row{grid-template-columns:1fr;gap:var(--s-5);}
-  .arch{max-width:260px;}
+  /* one column, so there is no text beside the picture to match — the stretch
+     above has nothing to measure against and the ratio has to come back. */
+  .portrait-row{grid-template-columns:1fr;gap:var(--s-5);align-items:start;}
+  .shot{max-width:260px;height:auto;aspect-ratio:3/4;}
 }
 
 @media (max-width:700px){

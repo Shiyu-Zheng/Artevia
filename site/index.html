@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arts Operations Partner — for musicians and music organisations</title>
 
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#3E4A34">
 <link rel="preload" href="fonts/marcellus-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
@@ -20,7 +24,7 @@
     <div class="nav-links">
       <a href="#services" data-target="services">Services</a>
       <a href="blog.html">Blog</a>
-      <a href="about.html">About</a>
+      <a href="#about" data-target="about">About</a>
       <a class="nav-cta" href="#contact">Contact</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Menu">
@@ -30,7 +34,7 @@
   <div class="nav-panel" id="navPanel">
     <a href="#services">Services</a>
     <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
+    <a href="#about">About</a>
     <a href="#contact">Contact</a>
   </div>
 </div>
@@ -40,15 +44,15 @@
 
 
     <div class="eyebrow">Arts Operations Partner</div>
-    <h1>The business side of your creative work — <em>handled.</em></h1>
-    <p class="hero-sub">Fractional support for musicians and music organisations.</p>
+    <h1>Fractional operations support for musicians and music organisations.</h1>
+    <p class="hero-sub">The business side of your creative work — <em>handled.</em></p>
     <a class="cta" href="#contact">Get in touch</a>
   </div>
 </div>
 
 <section class="alt" id="services">
   <div class="shell">
-    <h2 class="sec-h">What I can take off your plate</h2>
+    <h2 class="sec-h">Areas of support</h2>
     <!-- Six outline marks, defined once and placed with <use>. Outline here
          deliberately: the notation figure below uses filled icons, so the two
          sets read as different kinds of thing. -->
@@ -243,30 +247,52 @@
   </div>
 </section>
 
-<section id="start">
+<!-- Was about.html. Folded in here so the personal half sits between what the
+     work is and how it runs. #about is a real anchor — the nav and blog.html
+     both point at it, so don't rename the id without updating those. -->
+<section id="about">
   <div class="shell">
-    <h2 class="sec-h">How we work</h2>
+    <h2 class="sec-h">I came to operations from the stage.</h2>
 
+    <div class="portrait-row">
+      <div class="shot"><img src="portrait.jpg" alt="Alina Zheng" loading="lazy"></div>
+      <div>
+        <p>Hi, I'm Alina — a classical pianist, an educator, and an arts coordinator. A decade in this industry, on stage, backstage, and behind the desk.</p>
+        <p>I've been on both sides of the stage, so I know what a musician needs before they ask — and what quietly falls apart in a programme when nobody is holding it.</p>
+        <p>Operations is care. The best work comes from people who trust and support each other, just like an ensemble.</p>
+        <p>ArteVia comes from the Latin: a path made through art. It was mine, and I'd like it to be one for other people too.</p>
+
+        <div class="edu-mini">
+          <div class="lab">Education</div>
+          <p><strong>Master of Music, Distinction</strong><br>Royal Welsh College of Music and Drama</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="alt">
+  <div class="shell">
+    <h2 class="sec-h">The process</h2>
+
+    <!-- Three named axes, not a two-column before/after. The label carries the
+         promise, so the sentence under it can be concrete instead of having to
+         set up its own subject. Eight loose bullets couldn't do that. -->
     <div class="states">
 
-      <div class="shift-col shift-now">
-        <h3>Where you are now</h3>
-        <ul>
-          <li>Opportunities you hear about too late</li>
-          <li>Threads half-answered, nothing tracked</li>
-          <li>Your own invoices to chase</li>
-          <li>All of it in your head</li>
-        </ul>
+      <div class="shift-col">
+        <h3>Someone owns it</h3>
+        <p>Operations become one person's job, instead of something fitted around everything else.</p>
       </div>
 
-      <div class="shift-col shift-after">
-        <h3>Where this gets you</h3>
-        <ul>
-          <li>A list of what's open and when it closes</li>
-          <li>Every thread tracked to a next step</li>
-          <li>Invoices out, payments in</li>
-          <li>A system you own and keep</li>
-        </ul>
+      <div class="shift-col">
+        <h3>Nothing dropped</h3>
+        <p>Every open thread has a date against it and someone's name on it.</p>
+      </div>
+
+      <div class="shift-col">
+        <h3>It keeps running</h3>
+        <p>Built in your accounts, then maintained and refined month by month. Yours throughout.</p>
       </div>
 
     </div>
@@ -275,18 +301,18 @@
 
       <div class="flow-node">
         <h3>Discovery</h3>
-        <p>We talk about what's eating your time.</p>
+        <p>A call about what's eating your time.</p>
       </div>
 
       <div class="flow-split">
         <div class="flow-branches">
           <div class="flow-branch">
             <h3>Starting from scratch?</h3>
-            <p>We'll build the workflow that works for you.</p>
+            <p>Built around the way you already do things.</p>
           </div>
           <div class="flow-branch">
             <h3>Got a system you like?</h3>
-            <p>We'll keep it running, and refine it over time.</p>
+            <p>Kept running, and refined over time.</p>
           </div>
         </div>
       </div>
@@ -298,22 +324,24 @@
 
       <div class="flow-node">
         <h3>Kick-off</h3>
-        <p>You get your time back.</p>
+        <p>Your time back.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<section class="alt stance">
+<!-- Was "Built by a musician. Not a developer." on the homepage and "How I like
+     to work" on about.html. One section now: the working philosophy sits
+     directly under the process it explains. -->
+<section class="stance">
   <div class="shell">
-    <p>Built by a musician. Not a developer.</p>
-    <a class="more" href="about.html">More about my background →</a>
+    <p>The best system isn't the one with the most features. It's the one with every unnecessary step taken out.</p>
   </div>
 </section>
 
 
-<section id="trusted" class="tight">
+<section id="trusted" class="alt tight">
   <div class="shell">
     <h2 class="sec-h">Trusted by</h2>
     <div class="trust-logos">
@@ -325,21 +353,22 @@
 
 <section class="closing" id="contact">
   <div class="shell">
-    <h2>Start the conversation</h2>
+    <h2>Let's talk about your week.</h2>
 
     <div class="ways">
 
-      <div class="way">
+      <!-- The whole panel is the link, not just the phrase inside it. Same
+           construction as .post-item on the blog, and it makes the target the
+           box you can see rather than a 90px line of text inside it. -->
+      <a class="way" href="https://calendly.com/hello-arte-via/30min" target="_blank" rel="noopener">
         <h3>Book a call</h3>
-        <p>Let's talk about your week.</p>
-        <a class="way-btn" href="https://calendly.com/hello-arte-via/30min" target="_blank" rel="noopener">Pick a time →</a>
-      </div>
+        <span class="way-btn">Pick a time →</span>
+      </a>
 
-      <div class="way">
+      <a class="way" href="enquiry.html">
         <h3>Drop a message</h3>
-        <p>Tell me what's on your plate.</p>
-        <a class="way-btn" href="enquiry.html">Write to me →</a>
-      </div>
+        <span class="way-btn">Write to me →</span>
+      </a>
 
     </div>
   </div>
