@@ -13,12 +13,11 @@ privacy policy says so, so keep it true.
 ```
 site/                     ← the only thing published
   index.html              homepage — everything except the blog and the form
-  blog.html               currently "Coming soon"
+  blog.html               "Coming soon" — no posts exist
   enquiry.html            contact form, posts to Formspree as plain HTML
   privacy.html            DRAFT — see below
   terms.html              DRAFT — see below
   post-template.html      copy, rename, fill in
-  you-cant-delegate-...   written post, currently unlinked from blog.html
   site.css                all styling, every page
   site.js                 all behaviour, every page
   fonts/                  Marcellus + Jost, woff2, SIL OFL
@@ -75,13 +74,14 @@ were wrong within a day.
 
 ## Before the first publish
 
-**`privacy.html` and `terms.html` are unreviewed drafts.** Both still contain a
-visible box reading *"Note for Shiyu — delete this box before publishing"*, and
-both name **Shiyu Zheng** as the legal operator while the rest of the site reads
-**Alina Zheng**.
+**`privacy.html` and `terms.html` are unreviewed drafts, and they are committed.**
+Both still contain a visible box reading *"Note for Shiyu — delete this box
+before publishing"*, and both name **Shiyu Zheng** as the legal operator while
+the rest of the site reads **Alina Zheng**.
 
-Both are linked from every footer, so they go live the moment Pages is enabled.
-Resolve them or remove the footer links first.
+They are in `main` and linked from every footer, so they publish — note boxes
+and all — the moment Pages is enabled. Resolve them or remove the footer links
+before switching Pages on.
 
 ---
 
