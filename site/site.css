@@ -911,24 +911,58 @@ body.page-blog{--measure:860px;}
   .trust-tall img{max-height:58px;}
 
   /* four columns stop fitting here. The flow turns back into a vertical
-     sequence: connectors move from the left edge to the top, and the fork
-     bracket is dropped because a stack doesn't need one. */
+     sequence: connectors move from the left edge to the top.
+
+     The fork keeps both branches side by side. Stacking them was tried and is
+     wrong twice over: five boxes in one line read as five steps you do in
+     turn, and the connector out of Discovery lands on the first branch, which
+     makes it look like the default and the second like an afterthought. A
+     fork has to show two equal options, and only two columns do that. */
   .states{grid-template-columns:1fr;}
   .flow{grid-template-columns:1fr;gap:var(--s-3);}
   .flow > * + *::before{
     left:calc(50% - 0.5px);top:calc(var(--s-3) * -1);
     width:1px;height:var(--s-3);
   }
-  .flow-branches::before,
-  .flow-branches::after{display:none;}
   .flow-split::before,
   .flow-split + *::before{left:calc(50% - 0.5px);width:1px;}
-  .flow-branch + .flow-branch{position:relative;}
-  .flow-branch + .flow-branch::before{
-    content:"";position:absolute;
-    top:calc(var(--s-3) * -1);left:calc(50% - 0.5px);
-    width:1px;height:var(--s-3);
-    background:var(--line);
+
+  /* Two columns. min-width:0 stops a long heading setting its own column
+     width and pushing the pair off-centre — flex items default to min-content
+     and "Starting from scratch?" is wider than half of 346px. */
+  .flow-branches{flex-direction:row;align-items:stretch;}
+  .flow-branch{flex:1;min-width:0;}
+
+  /* Padding, not margin. The connector is drawn on .flow-split itself and the
+     bracket on .flow-branches inside it, so a margin moves both together and
+     they land in the same 24px — measured at exactly 24px of overlap, which
+     draws the connector straight down through the crossbar and leaves a stub
+     hanging between the two branches. Padding moves only the child, so the
+     two bands sit adjacent: connector ends where the crossbar begins. */
+  .flow-split{padding:var(--s-3) 0;}
+
+  /* The bracket, redrawn horizontally. Not 25% and 75% — that is 6px wide of
+     each branch centre, because the 24px gap comes out of the columns, so a
+     161px branch inside 346px centres on 80.5px and not on 86.5px. Backing
+     off by a quarter of the gap puts the legs on centre to within half a
+     pixel. Same correction the vertical bracket makes above, rotated. */
+  .flow-branches::before,
+  .flow-branches::after{
+    left:calc(25% - var(--s-3) / 4);
+    right:calc(25% - var(--s-3) / 4);
+    width:auto;height:var(--s-3);border:0;
+  }
+  .flow-branches::before{
+    top:calc(var(--s-3) * -1);bottom:auto;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+  }
+  .flow-branches::after{
+    top:auto;bottom:calc(var(--s-3) * -1);
+    border-bottom:1px solid var(--line);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
   }
 }
 
@@ -939,7 +973,11 @@ body.page-blog{--measure:860px;}
   /* one column, so there is no text beside the picture to match — the stretch
      above has nothing to measure against and the ratio has to come back. */
   .portrait-row{grid-template-columns:1fr;gap:var(--s-5);align-items:start;}
-  .shot{max-width:260px;height:auto;aspect-ratio:3/4;}
+  /* the picture is now narrower than its column — 260px inside 346px on a
+     390px phone — so without auto margins it pins left and leaves 86px of
+     empty sand to its right. It has no margins at full width because there it
+     fills the column exactly. */
+  .shot{max-width:260px;height:auto;aspect-ratio:3/4;margin-inline:auto;}
 }
 
 @media (max-width:700px){
@@ -952,6 +990,16 @@ body.page-blog{--measure:860px;}
   .nav-panel a{padding-left:22px;padding-right:22px;}
 
   .pkg-more a{white-space:nowrap;}
+
+  /* Headings are the only type on the site with no mobile step. At 32px in
+     Marcellus, "From stage to operations" measures ~353px against the 346px
+     the shell leaves on a 390px phone — over by 7px, so it wraps and reads as
+     a mistake rather than a decision. 28px brings it to ~310px and clears
+     every section heading. The closing h2 needs 26px, not 28: "Let's talk
+     about your week." is three characters longer and lands on 348px at 28.
+     The 2px gap between the two sizes is the same as at full width. */
+  .sec-h{font-size:28px;}
+  .closing h2{font-size:26px;}
 
   section{padding:56px 0;}
   footer{flex-direction:column;gap:8px;}
