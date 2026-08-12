@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /post-template.html
+
+Sitemap: https://arte-via.uk/sitemap.xml
