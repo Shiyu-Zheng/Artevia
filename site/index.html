@@ -252,14 +252,16 @@
      both point at it, so don't rename the id without updating those. -->
 <section id="about">
   <div class="shell">
-    <h2 class="sec-h">I came to operations from the stage.</h2>
+    <h2 class="sec-h">From stage to operations</h2>
 
     <div class="portrait-row">
       <div class="shot"><img src="portrait.jpg" alt="Alina Zheng" loading="lazy"></div>
-      <div>
-        <p>Hi, I'm Alina — a classical pianist, an educator, and an arts coordinator. A decade in this industry, on stage, backstage, and behind the desk.</p>
-        <p>I've been on both sides of the stage, so I know what a musician needs before they ask — and what quietly falls apart in a programme when nobody is holding it.</p>
-        <p>Operations is care. The best work comes from people who trust and support each other, just like an ensemble.</p>
+      <div class="bio">
+        <p>Hi, I'm Alina — a classical pianist, educator, and founder of ArteVia.</p>
+        <p>A decade in the music industry, on stage, backstage, and behind the desk, has given me a comprehensive perspective on how the arts work.</p>
+        <p>I understand how much creative work sits behind a performance, and how quickly the practical side can take over when you're trying to do everything yourself.</p>
+        <p>Operations is care. The best work comes from people who trust and support each other, just like an ensemble. My role is to create the structure, keep things moving, notice what might otherwise be missed, and make sure the people behind the work have the support they need.</p>
+        <p>My vision is to bring that sense of human support to the arts industry. Not the usual project manager who tracks the plan, but an operations partner who cares how it turns out.</p>
         <p>ArteVia comes from the Latin: a path made through art. It was mine, and I'd like it to be one for other people too.</p>
 
         <div class="edu-mini">
@@ -281,18 +283,18 @@
     <div class="states">
 
       <div class="shift-col">
-        <h3>Someone owns it</h3>
-        <p>Operations become one person's job, instead of something fitted around everything else.</p>
+        <h3>You get a back office</h3>
+        <p>Not a pair of hands — the systems and routines behind them, run for you.</p>
       </div>
 
       <div class="shift-col">
         <h3>Nothing dropped</h3>
-        <p>Every open thread has a date against it and someone's name on it.</p>
+        <p>Nothing depends on you remembering it. Every open thread has a date and an owner.</p>
       </div>
 
       <div class="shift-col">
         <h3>It keeps running</h3>
-        <p>Built in your accounts, then maintained and refined month by month. Yours throughout.</p>
+        <p>Built in your accounts, so it's yours from day one. Maintained and refined month by month.</p>
       </div>
 
     </div>
@@ -328,20 +330,16 @@
       </div>
 
     </div>
+
+    <p class="pkg-more">Want an NDA before we get into detail? <a href="#contact">Ask →</a></p>
+
   </div>
 </section>
 
-<!-- Was "Built by a musician. Not a developer." on the homepage and "How I like
-     to work" on about.html. One section now: the working philosophy sits
-     directly under the process it explains. -->
-<section class="stance">
-  <div class="shell">
-    <p>The best system isn't the one with the most features. It's the one with every unnecessary step taken out.</p>
-  </div>
-</section>
-
-
-<section id="trusted" class="alt tight">
+<!-- Bone, not sand. The process above it is sand; without a colour change
+     between them the 144px boundary gap disappears and the two read as one
+     section. -->
+<section id="trusted" class="tight">
   <div class="shell">
     <h2 class="sec-h">Trusted by</h2>
     <!-- Every logo is its own full lockup — a mark with the organisation's name
@@ -358,22 +356,120 @@
 
 <section class="closing" id="contact">
   <div class="shell">
-    <h2>Let's talk about your week.</h2>
+    <div class="contact-grid">
 
-    <div class="ways">
+      <!-- Structure follows cardengrowth.com, which was the reference: one
+           label, one heading, one dimmed sentence, then a list. Two headings
+           back to back was the problem before — "Get in touch" and "Let's talk
+           about how I can help" say the same thing twice at two sizes, and the
+           three trailing sentences under them all read as afterthoughts.
 
-      <!-- The whole panel is the link, not just the phrase inside it. Same
-           construction as .post-item on the blog, and it makes the target the
-           box you can see rather than a 90px line of text inside it. -->
-      <a class="way" href="https://calendly.com/hello-arte-via/30min" target="_blank" rel="noopener">
-        <h3>Book a call</h3>
-        <span class="way-btn">Pick a time →</span>
-      </a>
+           Putting Email and Reply time into a labelled list is the fix. It
+           gives the column rhythm instead of a ramp of shrinking text, and it
+           makes the address the second largest thing here rather than the
+           smallest. -->
+      <div class="contact-intro">
+        <div class="eyebrow">Get in touch</div>
+        <h2>Let's talk about how I can help.</h2>
+        <p class="contact-lead">Book a free 30-minute consultation. No obligation, no sales pitch, just a genuine conversation about what's on your plate and how I might help.</p>
 
-      <a class="way" href="enquiry.html">
-        <h3>Drop a message</h3>
-        <span class="way-btn">Write to me →</span>
-      </a>
+        <dl class="contact-facts">
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:hello@arte-via.uk">hello@arte-via.uk</a></dd>
+          </div>
+          <div>
+            <!-- "I", not "we" — sole trader, and the rest of the site is first
+                 person singular throughout. -->
+            <dt>Reply time</dt>
+            <dd>Within one working day</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Deliberately a plain HTML form: no Formspree script, no CAPTCHA.
+           Nothing is requested from their servers until someone presses the
+           button, which is what keeps the privacy policy's "no third-party
+           requests" line true for anyone simply reading the page. Don't add
+           their JS embed later without changing that sentence too.
+
+           data-next is where site.js sends people once Formspree accepts the
+           submission. Formspree's own "Thank You redirect" is a paid feature,
+           so the hand-off happens in our own JS. The URL lives here rather
+           than in site.js so it can be changed without touching a file every
+           page loads. -->
+      <form class="enquiry" action="https://formspree.io/f/moeaapbn" method="POST"
+            data-next="https://calendly.com/hello-arte-via/30min">
+
+        <input type="hidden" name="_subject" value="ArteVia enquiry">
+        <!-- honeypot: bots fill it, people never see it. No third-party spam service. -->
+        <p class="hp"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+        <!-- The only paired row. Measured at a 464px form column: each half is
+             220px, "Your name" is 64px and "Organisation or ensemble" is 149px
+             once the word optional comes out of the label. A label that wraps
+             in one column and not the other drops its input out of line with
+             its neighbour, so measure before pairing anything else.
+
+             "optional" is a placeholder rather than a span in the label — it
+             costs no horizontal room there, and the field carries no required
+             attribute, so nothing is lost for a screen reader. -->
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+
+          <div class="field">
+            <label for="org">Organisation or ensemble</label>
+            <input type="text" id="org" name="organisation" placeholder="optional" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <!-- id="support", not id="about" — this page already has a
+             <section id="about">, and two elements sharing an id breaks the
+             label association and the scroll spy. The submitted field is still
+             called "about", so nothing changes in the Formspree email. -->
+        <div class="field">
+          <label for="support">What kind of support are you looking for?</label>
+          <!-- The placeholder is load-bearing. Without it the browser
+               pre-selects the first real option, so an untouched dropdown
+               submits "A project or event" and reads exactly like a deliberate
+               answer. Not required, so an unanswered field arrives blank.
+
+               Three options, not six. Single-select only works if the options
+               are mutually exclusive, and one-off vs ongoing is the only split
+               that changes how a first call is prepared. -->
+          <select id="support" name="about">
+            <option value="" disabled selected>Choose the closest</option>
+            <option>A project or event</option>
+            <option>Ongoing help</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <!-- Not "What's taking up your time?" — that presumed the answer was
+               "too much admin", which a venue with one festival in October has
+               no answer to. Required, so it stays directive; "a bit" does the
+               softening and gives permission to write two lines. -->
+          <label for="message">Tell me a bit about the work</label>
+          <textarea id="message" name="message" rows="3" required></textarea>
+        </div>
+
+        <button type="submit">Book a call</button>
+
+        <!-- role="status" so a screen reader announces the result without the
+             focus being moved. Empty and hidden until site.js has something to
+             report. -->
+        <p class="form-status" role="status" aria-live="polite" hidden></p>
+
+      </form>
 
     </div>
   </div>

@@ -30,7 +30,13 @@
 <div class="shell">
   <div class="head">
     <div class="eyebrow">Get in touch</div>
-    <h1>Send a message.</h1>
+    <h1>Book a call.</h1>
+    <!-- "you", not "you'll" — measured. At 19px the you'll version put "time."
+         on its own line on a 375px phone by under a pixel.
+
+         Says free here as well as on the homepage, because the nav and any
+         direct link land people on this page without passing the panel. -->
+    <p class="head-sub">Thirty minutes, free. A few details first, then you pick a time.</p>
   </div>
 
   <!-- Deliberately a plain HTML form: no Formspree script, no CAPTCHA. Nothing
@@ -39,15 +45,28 @@
        simply reading the page. Don't add their JS embed later without changing
        that sentence too. -->
 
-  <form class="enquiry" action="https://formspree.io/f/moeaapbn" method="POST">
+  <!-- data-next is where site.js sends people once Formspree has accepted the
+       submission. Formspree's own "Thank You redirect" setting is a paid
+       feature, so the hand-off is done in our own JS instead. The URL lives
+       here rather than in site.js so it can be changed without touching a file
+       every page loads. -->
+  <form class="enquiry" action="https://formspree.io/f/moeaapbn" method="POST"
+        data-next="https://calendly.com/hello-arte-via/30min">
 
     <input type="hidden" name="_subject" value="ArteVia enquiry">
     <!-- honeypot: bots fill it, people never see it. No third-party spam service. -->
     <p class="hp"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
 
-    <div class="field">
-      <label for="name">Your name</label>
-      <input type="text" id="name" name="name" required autocomplete="name">
+    <div class="field-row">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="org">Organisation or ensemble</label>
+        <input type="text" id="org" name="organisation" placeholder="optional" autocomplete="organization">
+      </div>
     </div>
 
     <div class="field">
@@ -56,30 +75,47 @@
     </div>
 
     <div class="field">
-      <label for="org">Organisation <span class="opt">optional</span></label>
-      <input type="text" id="org" name="organisation" autocomplete="organization">
-    </div>
+      <label for="about">What kind of support are you looking for?</label>
+      <!-- The placeholder is load-bearing. Without it the browser pre-selects
+           the first real option, so an untouched dropdown submits "A project or
+           event" and reads exactly like a deliberate answer. Not required, so an
+           unanswered field arrives blank and honest.
 
-    <div class="field">
-      <label for="about">What's this about?</label>
+           Three options, not six. Single-select only works if the options are
+           mutually exclusive, and one-off vs ongoing is the only split that
+           changes how a first call is prepared. Systems, Design and Inbox are
+           areas rather than shapes of engagement — the message field below
+           picks those up without forcing a false choice here. -->
       <select id="about" name="about">
-        <option>A concert, tour or project coming up</option>
-        <option>Ongoing help, week to week</option>
-        <option>Getting systems and files in order</option>
+        <option value="" disabled selected>Choose the closest</option>
+        <option>A project or event</option>
+        <option>Ongoing help</option>
         <option>Not sure yet</option>
       </select>
     </div>
 
     <div class="field">
-      <label for="message">What's taking up your time?</label>
-      <textarea id="message" name="message" rows="7" required></textarea>
+      <!-- Not "What's taking up your time?" — that presumed the answer was
+           "too much admin", which a venue with one festival in October has no
+           answer to. Required, so it stays directive; "a bit" does the
+           softening and gives permission to write two lines. -->
+      <label for="message">Tell me a bit about the work</label>
+      <textarea id="message" name="message" rows="3" required></textarea>
     </div>
 
-    <button type="submit">Send it</button>
+    <button type="submit">Book a call</button>
+
+    <!-- role="status" so a screen reader announces the result without the
+         focus being moved. Empty and hidden until site.js has something to
+         report. -->
+    <p class="form-status" role="status" aria-live="polite" hidden></p>
 
   </form>
 
-  <p class="enquiry-alt">Rather book a call? <a href="https://calendly.com/hello-arte-via/30min" target="_blank" rel="noopener">Find a time →</a></p>
+  <!-- The way out, not a competing offer. The Calendly link that used to sit
+       here has gone — it let people skip the form on the one page built to
+       collect it. -->
+  <p class="enquiry-alt">Rather just email? <a href="mailto:hello@arte-via.uk">hello@arte-via.uk</a></p>
 
 </div>
 

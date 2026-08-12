@@ -51,6 +51,9 @@
   --ink:#2E2A28;
   --ink-soft:#55493F;
   --line:#D9C9BA;
+  /* the one light green on the site. It was already here as a raw hex
+     inside .way-btn; this names it rather than adding it. 5.80:1 on olive. */
+  --sage:#C7CEBA;
   --nav-h:72px;
 
   /* type scale — every step has one job */
@@ -97,8 +100,7 @@ a{color:inherit;}
 
 /* STANDING RULE — a link never breaks across two lines, at any width.
    Applies to every link that is a short phrase or a call to action. */
-.cta, .more, .way-btn, .pkg-more a, .nav-links a, .nav-panel a,
-footer a, .closing a.mail{
+.cta, .more, .contact-facts dd a, .pkg-more a, .nav-links a, .nav-panel a, footer a{
   white-space:nowrap;
 }
 
@@ -113,8 +115,8 @@ footer a, .closing a.mail{
    is a boundary you can read as one gap. */
 section{padding:var(--s-7) 0;}
 
-/* sections with little in them get less. The stance is one line and a link; a
-   full section's padding around it left it marooned. */
+/* sections with little in them get less. Trusted by is a heading and a row of
+   logos; a full section's padding around it left it marooned. */
 .tight{padding:var(--s-6) 0;}
 .alt{background:var(--sand);}
 
@@ -124,10 +126,11 @@ section{padding:var(--s-7) 0;}
    about them follows the homepage. */
 body.page-legal{--measure:760px;}
 
-/* SECTION MODIFIER — 1000, between the 1080 homepage and the 900 this section
-   had as its own page. At 1000 the prose column lands at ~64 characters, which
-   is the measure the picture below is sized against. */
-#about .shell{max-width:1000px;}
+/* About runs at the homepage measure like every other section, prose column
+   ~67 characters. It was held at 1000 for a while, splitting the difference
+   with the 900 it had as its own page — but that page is gone and is not
+   coming back, so there is nothing left to split. Don't reinstate a modifier
+   here without a reason that exists. */
 
 /* the nav bar spans the full width regardless of page measure */
 .nav .shell{max-width:1080px;}
@@ -311,9 +314,6 @@ footer a:hover{color:var(--terracotta);}
    detail drawn back out of the body in the knockout colour */
 .bar-fig .fg{fill:var(--olive);}
 .bar-fig .ko{fill:var(--fig-bg);}
-.bar-fig .fg-line{
-  fill:none;stroke:var(--olive);stroke-width:2;stroke-linecap:round;
-}
 .bar-fig .ko-line{
   fill:none;stroke:var(--fig-bg);stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round;
@@ -363,37 +363,6 @@ footer a:hover{color:var(--terracotta);}
 }
 .shift-col p{
   font-size:var(--t-body);line-height:1.55;color:var(--ink-soft);
-}
-
-/* DEAD — these three columns were a two-column before/after list. The list
-   rules and the two shift-now / shift-after colour variants went with it.
-   Delete on the next clean-up pass. */
-.shift-col ul{list-style:none;}
-.shift-col li{
-  font-size:var(--t-body);line-height:1.5;
-  padding:0 0 var(--s-1) 15px;position:relative;
-}
-.shift-col li:last-child{padding-bottom:0;}
-.shift-col li::before{
-  content:"";position:absolute;left:0;top:12px;
-  width:6px;height:1px;background:var(--sand-deep);
-}
-.shift-now li{color:var(--ink-soft);}
-.shift-after li{color:var(--olive);}
-.shift-after li::before{background:var(--terracotta);}
-
-/* LIVE again. Held "Built by a musician. Not a developer.", was briefly
-   replaced by the .beliefs block, and now holds the one-quote philosophy.
-   No heading above it — the statement is the whole section. */
-.stance{text-align:center;padding:var(--s-6) 0;}
-/* 38ch, not 34ch. The quote is two sentences of 36.6ch and 35.4ch. Anything
-   under 36.6ch breaks the first sentence across a line; anything over ~40ch
-   pulls "It's the" up onto line one and the break stops landing on the full
-   stop. 38ch = 529px sits in the middle of that window, so the two sentences
-   get a line each. Re-measure if the wording changes. */
-.stance p{
-  font-size:var(--t-statement);color:var(--olive);
-  line-height:1.45;max-width:38ch;margin:0 auto;text-wrap:balance;
 }
 
 /* ---- the six areas, all open ----
@@ -548,55 +517,88 @@ footer a:hover{color:var(--terracotta);}
    ============================================================= */
 /* --s-6, not --s-8. Two cards holding six short lines don't need 96px of olive
    above and below them; the block was ~400px of colour for very little. */
-.closing{background:var(--olive);color:var(--bone);text-align:center;padding:var(--s-6) 0;}
-.closing h2{font-size:var(--t-h2);margin-bottom:var(--s-5);}
-/* DEAD — .closing p and .way p both styled the card descriptions, which are
-   gone. .closing a.mail was about.html's direct email link. Delete on the next
-   clean-up pass. */
-.closing p{color:#C7CEBA;max-width:46ch;margin:0 auto var(--s-5);}
-.way p{color:#9FAA90;font-size:var(--t-body);line-height:1.55;max-width:none;}
-.closing a.mail{
-  font-family:'Marcellus',serif;font-size:var(--t-h3);color:var(--bone);text-decoration:none;
-  border-bottom:1px solid rgba(251,248,243,0.4);padding-bottom:6px;
+/* Not centred any more, and --s-7 rather than --s-6: this section now holds a
+   six-field form, so it is the tallest block on the page and needs the padding
+   of one. Centred text and a form cannot share a section. */
+.closing{background:var(--olive);color:var(--bone);padding:var(--s-7) 0;}
+.closing h2{font-size:var(--t-h2);margin-bottom:var(--s-3);}
+
+/* Pitch left, form right, equal halves. Uneven columns were tried at 0.85fr
+   against 1fr and the intro column — four short lines — just looked starved
+   next to a six-field form. Equal columns give each 464px inside the 1000px
+   shell, which is what the paired row below is measured against. */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7);
+  align-items:start;
+}
+
+/* the page eyebrow is terracotta, 1.82:1 on olive and unreadable. Sage here. */
+.closing .eyebrow{color:var(--sage);}
+
+/* Dimmed, deliberately — it is the supporting sentence, not the offer. 0.72
+   is 5.25:1; 0.62 looked better and measured 4.38:1, which fails AA. */
+.contact-lead{
+  font-size:var(--t-body);color:rgba(247,241,236,0.72);
+  margin:0 0 var(--s-5);max-width:42ch;
+}
+
+/* The facts, as a list rather than more sentences. Micro uppercase label in
+   sage over a --t-lead value, so the email address ends up the second largest
+   thing in the column instead of the smallest. */
+.contact-facts{display:grid;gap:var(--s-3);}
+.contact-facts dt{
+  font-size:var(--t-micro);letter-spacing:0.13em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:6px;
+}
+.contact-facts dd{font-size:var(--t-lead);color:var(--bone);margin:0;}
+.contact-facts dd a{
+  color:var(--bone);text-decoration:none;
+  border-bottom:1px solid rgba(247,241,236,0.5);padding-bottom:3px;
   transition:border-color .25s;
 }
-.closing a.mail:hover{border-color:var(--bone);}
+.contact-facts dd a:hover{border-color:var(--bone);}
 
-/* 480, not 580. Each panel holds a heading and one short phrase, both centred,
-   and the widest of them is "Drop a message" at 151px. A 228px column leaves
-   29px either side — enough to breathe, not so much the box reads as empty.
-   Panels come out 228 x 140, which is close to a 1.6 landscape rectangle. */
-.ways{
-  display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3);
-  max-width:480px;margin:0 auto;
+/* ---- the form, on olive -------------------------------------------------
+   Every value below is measured against #3E4A34. Text needs 4.5:1, a form
+   control's boundary needs 3:1. The sand fill and --line border the fields
+   carry on a bone page are both invisible here, so they are replaced rather
+   than tinted. */
+.closing .field label{color:rgba(247,241,236,0.82);}      /* 6.28:1 */
+.closing .field ::placeholder{color:rgba(247,241,236,0.82);}  /* 5.19:1 on the field fill */
+.closing .field input,
+.closing .field select,
+.closing .field textarea{
+  background:rgba(247,241,236,0.07);                      /* #4B5641 */
+  border-color:rgba(247,241,236,0.48);                    /* 3.28:1 — 0.28 was 2.08 and failed */
+  color:var(--bone);                                      /* 6.93:1 on the fill */
 }
-/* radius 16, matching the six area cards rather than the 20 this used to
-   carry — the two sets of cards on the page now belong to one family.
-   Content is centred, so the slack sits evenly on both sides; left-aligned
-   was what made the old wider boxes look half-empty. */
-.way{
-  display:flex;flex-direction:column;align-items:center;
-  background:rgba(247,241,236,0.07);
-  border:1px solid rgba(247,241,236,0.18);
-  border-radius:16px;padding:var(--s-5) var(--s-3);
-  text-decoration:none;
-  transition:background .25s,border-color .25s;
+/* the dropdown list is drawn by the OS and inherits from the select, so
+   without this the options render bone-on-white and vanish */
+.closing .field option{background:var(--olive);color:var(--bone);}
+.closing .field input:focus,
+.closing .field select:focus,
+.closing .field textarea:focus{
+  border-color:var(--bone);
+  box-shadow:0 0 0 3px rgba(247,241,236,0.16);
 }
-.way:hover{
-  background:rgba(247,241,236,0.12);
-  border-color:rgba(247,241,236,0.34);
+.closing .form-note,
+.closing .form-status{color:rgba(247,241,236,0.82);}
+.closing .form-status.error{color:#E8B4A6;}               /* terracotta is 1.82:1 here; this is the same hue lifted */
+
+/* The button inverts — olive on olive is a button you cannot see — and runs
+   the full width of the form. An inline pill under a 464px column of fields
+   reads as an afterthought; the full bar closes the form off and makes the
+   primary action of the page impossible to miss. It is the loudest element
+   on the site, deliberately, and only here. */
+.closing .enquiry button{
+  width:100%;
+  color:var(--olive);background:var(--bone);
 }
-.way h3{font-size:var(--t-h3);color:var(--bone);margin-bottom:var(--s-2);}
-/* a span, not a link — the panel around it is the link. It keeps the underline
-   so the action still reads as clickable, and it responds to hover on the
-   panel rather than only on itself. */
-.way-btn{
-  font-size:var(--t-small);letter-spacing:0.1em;
-  color:#C7CEBA;
-  border-bottom:1px solid rgba(247,241,236,0.3);padding-bottom:5px;
-  transition:color .25s,border-color .25s;
-}
-.way:hover .way-btn{color:var(--bone);border-color:var(--bone);}
+.closing .enquiry button:hover{color:var(--bone);background:var(--terracotta);}
+.closing .enquiry button:disabled,
+.closing .enquiry button:disabled:hover{color:var(--olive);background:var(--bone);}
+.closing .enquiry button:focus-visible{outline-color:var(--bone);}
+
 
 
 /* =============================================================
@@ -619,11 +621,29 @@ footer a:hover{color:var(--terracotta);}
    the whole point — a fixed ratio had to be recalculated every time the copy
    moved, and was wrong within a day of being set.
 
-   0.78/1.22 sets the WIDTH only. Against the ~445px the current four
-   paragraphs and the education block occupy, it makes a 337 x 445 rectangle —
-   0.757, which is 3:4 to within a rounding error, so the crop is negligible.
-   If the copy ever grows a lot longer, narrow this split rather than letting
-   the picture turn into a column. */
+   0.78/1.22 sets the WIDTH only. portrait.jpg is 768 x 1010 — a ratio of 0.760
+   — and the box wants to match it, or the crop starts eating the sides.
+
+   OPEN PROBLEM. The About copy grew by two thirds and the box no longer
+   matches. Measured, at 1080:
+
+     education inside the prose column (how it is now)   368 x 652   0.564
+     education moved under the picture                   378 x 493   0.766
+
+   Moving it is the only lever that works, because it takes height out twice —
+   once from the prose column, once from the row the picture has to fill. Every
+   other approach was measured and fails:
+
+     · narrowing the split fights width when the problem is height
+     · widening past 1080 makes About wider than every other section
+     · with education inside, NO width/split combination reaches 0.760 without
+       the picture column growing wider than the prose column
+
+   So 0.564 is the best available while education stays in the prose column.
+   That is a known trade, not an oversight — the arrangement was tried on
+   11 Aug 2026 and reverted because it looked wrong, not because it measured
+   wrong. Widening the section from 1000 to 1080 is kept, and is worth 0.478 ->
+   0.564 on its own. */
 .portrait-row{
   display:grid;grid-template-columns:0.78fr 1.22fr;
   gap:var(--s-6);align-items:stretch;
@@ -647,7 +667,6 @@ footer a:hover{color:var(--terracotta);}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
 .portrait-row p{color:var(--ink-soft);}
 .portrait-row p + p{margin-top:var(--s-3);}
-.name{font-size:var(--t-h3);color:var(--olive);margin-bottom:var(--s-2);}
 
 .edu-mini{margin-top:var(--s-5);}
 /* terracotta, not olive-soft — every other micro label on the site is
@@ -660,15 +679,6 @@ footer a:hover{color:var(--terracotta);}
 .edu-mini p + p{margin-top:var(--s-2);}
 .edu-mini strong{font-weight:400;color:var(--olive);}
 
-/* DEAD — the three-paragraph philosophy block this styled was cut down to the
-   single quote in .stance above. Widening it was measured first: 62ch to 82ch,
-   a third wider, saved exactly one line of seven. The length was the text, not
-   the measure. Delete on the next clean-up pass. */
-.beliefs .inner{max-width:62ch;margin:0 auto;}
-.beliefs p{color:var(--ink-soft);font-size:var(--t-body);}
-.beliefs p + p{margin-top:var(--s-3);}
-
-
 /* =============================================================
    9 · Legal pages — privacy, terms
    ============================================================= */
@@ -678,6 +688,14 @@ footer a:hover{color:var(--terracotta);}
    the enquiry form — it's a dangling 16px with nothing under it to separate. */
 .head h1:last-child{margin-bottom:0;}
 .updated{font-size:var(--t-small);color:var(--olive-soft);letter-spacing:0.06em;}
+
+/* Sits under the h1 on the enquiry page, where the heading promises a call and
+   the page shows a form. Without this line people think they clicked the wrong
+   thing. --t-lead, not --t-small: a sentence to be read, not a caption. */
+.head-sub{
+  margin:0;
+  font-size:var(--t-lead);color:var(--ink-soft);
+}
 
 .doc{padding-bottom:var(--s-8);}
 .doc h2{font-size:var(--t-h3);color:var(--olive);margin:var(--s-6) 0 var(--s-2);}
@@ -699,11 +717,6 @@ footer a:hover{color:var(--terracotta);}
   transition:color .25s, text-decoration-color .25s;
 }
 .doc a:hover{color:var(--terracotta);text-decoration-color:var(--terracotta);}
-
-.note{
-  background:var(--sand);border-radius:14px;padding:var(--s-3);
-  font-size:var(--t-small);color:var(--ink-soft);margin:var(--s-5) 0;
-}
 
 
 /* =============================================================
@@ -756,17 +769,35 @@ body.page-blog{--measure:860px;}
 /* no top margin of its own — .head already contributes 40px below the title,
    and stacking --s-6 on top of that opened a 112px hole with nothing in it */
 .enquiry{max-width:560px;margin:0;}
-.field{margin-bottom:var(--s-3);}
+/* Structure is Carden's — one paired row, 16px gaps, 6px from label to input.
+   Radius stayed at 10px: 3px was tried to match them exactly and it put the
+   form in a different family to the 16px area cards. Ours wins.
+
+   Padding is as tight as the 44px minimum touch target allows and no tighter.
+   An input is padding + line-height + 2px of border, so at 11px vertical with
+   line-height 1.25 it comes to 44.6px. 10px would be 42.6px and under.
+
+   The gaps are where the remaining compactness came from. 12px between fields
+   is off the 8px scale on purpose: it has to stay clearly larger than the 6px
+   from a label to its own input, or you can no longer see which label belongs
+   to which box. 8px would be on-scale and would break that grouping. */
+.field{margin-bottom:12px;}
+
+/* Two short fields on one line. The children keep their own bottom margin, so
+   the row needs none of its own and the rhythm below it is unchanged. Only
+   ever wrap fields in this whose labels fit the half width — a label that
+   wraps in one column and not the other drops that input out of line with
+   its neighbour. Measure before adding a second row. */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
 /* labels are quiet. They were --t-micro uppercase terracotta, which put five
    eyebrow-weight headings down a single form and made it shout. Terracotta now
    appears once on this page, on the eyebrow above the title, which is what an
    accent colour is for. */
 .field label{
-  display:block;margin-bottom:7px;
+  display:block;margin-bottom:6px;line-height:1.3;
   font-size:var(--t-small);color:var(--ink-soft);letter-spacing:0.02em;
 }
-.field .opt{color:var(--olive-soft);}
 
 /* sand fill, not bone — on a bone page a bone input is defined only by its
    hairline, and reads as an outline rather than something to type in */
@@ -776,10 +807,25 @@ body.page-blog{--measure:860px;}
   width:100%;font:inherit;font-size:var(--t-body);color:var(--ink);
   background:var(--sand);
   border:1px solid var(--line);border-radius:10px;
-  padding:13px 15px;
+  padding:11px 14px;
   transition:border-color .2s, box-shadow .2s;
 }
-.field textarea{resize:vertical;line-height:1.6;min-height:150px;}
+/* Explicit height, not padding plus a line-height. Browsers do not agree on
+   whether line-height applies to a <select> — some honour it, some use the
+   font's own metrics — so identical CSS gave the dropdown a different height
+   to the text inputs beside it. Fixing the height settles it everywhere.
+   44px is the minimum touch target, so this is also the tightest these can be.
+   Vertical padding goes to 0 because the height now does that job; a single
+   line centres itself inside an input and a select. */
+.field input,
+.field select{height:44px;padding:0 14px;}
+/* the textarea keeps 1.6: it holds prose, where the leading does work */
+.field textarea{resize:vertical;line-height:1.6;min-height:96px;}
+
+/* "optional" sits in the box rather than the label, where it costs no width.
+   --ink-soft, not --olive-soft: olive-soft on sand measures 3.58:1 and misses
+   AA. opacity:1 because Firefox dims placeholders by default. */
+.field ::placeholder{color:var(--ink-soft);opacity:1;}
 .field input:focus,
 .field select:focus,
 .field textarea:focus{
@@ -787,19 +833,50 @@ body.page-blog{--measure:860px;}
   box-shadow:0 0 0 3px rgba(110,120,96,0.12);
 }
 
+/* Sits in the gap .field's bottom margin and the button's top margin already
+   make, so it needs no margin of its own. Styled as the labels are, because it
+   is form furniture rather than content. No link in it by design — see the
+   comment in enquiry.html. */
+.form-note{
+  margin:0;
+  font-size:var(--t-small);color:var(--ink-soft);
+}
+
 /* the one solid element on the page — this is the primary action, and every
    other button-ish thing on the site is a text link with a rule under it.
    Radius matches the inputs so the form reads as one object. */
+/* the one solid element on the page — every other button-ish thing on the site
+   is a text link with a rule under it. Geometry is Carden's: 14px 32px, no
+   border, 3px radius, matching the inputs above it. */
 .enquiry button{
   cursor:pointer;font:inherit;
   font-size:var(--t-small);letter-spacing:0.14em;text-transform:uppercase;
   color:var(--bone);background:var(--olive);
-  border:1px solid var(--olive);border-radius:10px;
-  padding:15px 34px;margin-top:var(--s-3);
-  transition:background .25s, border-color .25s;
+  border:0;border-radius:10px;
+  /* 12px, not 14. The button is pad*2 + 21.6px of line box, so 12 gives 45.6px
+     and 11 would give 43.6px — under the 44px touch target. */
+  padding:12px 28px;margin-top:12px;
+  transition:background .25s;
 }
-.enquiry button:hover{background:var(--terracotta);border-color:var(--terracotta);}
+.enquiry button:hover{background:var(--terracotta);}
 .enquiry button:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+/* held down while the submission is in flight, so the hover colour must not
+   fire — otherwise a disabled button lights up under the cursor */
+.enquiry button:disabled,
+.enquiry button:disabled:hover{
+  opacity:0.55;cursor:default;background:var(--olive);
+}
+
+/* Only ever seen after a submit attempt. Without JavaScript the form posts
+   normally and this element stays hidden, so it is enhancement rather than
+   plumbing — see the enquiry block in site.js. Label weight, like .form-note,
+   because it is form furniture and not content. */
+.form-status{
+  margin:var(--s-2) 0 0;
+  font-size:var(--t-small);color:var(--ink-soft);
+}
+.form-status[hidden]{display:none;}
+.form-status.error{color:var(--terracotta);}
 
 /* the honeypot has to exist in the DOM and never be seen or focused */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
@@ -823,6 +900,9 @@ body.page-blog{--measure:860px;}
 
 @media (max-width:900px){
   .areas{grid-template-columns:1fr 1fr;}
+  /* the 96px gap is a tenth of the shell at full width and a fifth of it here,
+     which starts taking room the form fields need */
+  .contact-grid{gap:var(--s-6);}
   /* three logos won't sit in a row on a narrow screen. Wrapping is fine — but
      shrink them first so it happens later, and tighten the gap so a wrapped
      pair doesn't drift apart. */
@@ -853,6 +933,9 @@ body.page-blog{--measure:860px;}
 }
 
 @media (max-width:760px){
+  /* pitch above form. Below this the form column is under 320px, which is
+     narrower than the fields want and narrower than the intro beside it. */
+  .contact-grid{grid-template-columns:1fr;gap:var(--s-5);}
   /* one column, so there is no text beside the picture to match — the stretch
      above has nothing to measure against and the ratio has to come back. */
   .portrait-row{grid-template-columns:1fr;gap:var(--s-5);align-items:start;}
@@ -869,7 +952,6 @@ body.page-blog{--measure:860px;}
   .nav-panel a{padding-left:22px;padding-right:22px;}
 
   .pkg-more a{white-space:nowrap;}
-  .ways{grid-template-columns:1fr;}
 
   section{padding:56px 0;}
   footer{flex-direction:column;gap:8px;}

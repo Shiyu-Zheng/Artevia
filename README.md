@@ -15,8 +15,8 @@ site/                     ← the only thing published
   index.html              homepage — everything except the blog and the form
   blog.html               "Coming soon" — no posts exist
   enquiry.html            contact form, posts to Formspree as plain HTML
-  privacy.html            DRAFT — see below
-  terms.html              DRAFT — see below
+  privacy.html
+  terms.html
   post-template.html      copy, rename, fill in
   site.css                all styling, every page
   site.js                 all behaviour, every page
@@ -72,40 +72,21 @@ were wrong within a day.
 
 ---
 
-## Before the first publish
-
-**`privacy.html` and `terms.html` are unreviewed drafts, and they are committed.**
-Both still contain a visible box reading *"Note for Shiyu — delete this box
-before publishing"*, and both name **Shiyu Zheng** as the legal operator while
-the rest of the site reads **Alina Zheng**.
-
-They are in `main` and linked from every footer, so they publish — note boxes
-and all — the moment Pages is enabled. Resolve them or remove the footer links
-before switching Pages on.
-
----
-
 ## Deploying
 
-Publishes automatically on every push to `main`.
+**Live at https://arte-via.uk**, HTTPS enforced. Publishes automatically on
+every push to `main` — there is no manual step.
 
-**One-time setup:** Settings → Pages → Build and deployment → Source, choose
-**GitHub Actions**. Without this the workflow runs and then fails at the deploy
-step.
+DNS is at Cloudflare: two `CNAME` records, one on the apex and one on `www`,
+both pointing at `shiyu-zheng.github.io` with the proxy **off** (grey cloud).
+Orange breaks certificate issuing. Mail is Zoho EU — never touch the `MX`
+records.
 
-Currently serves from `https://shiyu-zheng.github.io/Artevia/`.
+`site/CNAME` is present but ignored, because publishing happens through a
+workflow rather than from a branch. The domain is set in Settings → Pages.
 
-### Moving to arte-via.uk
-
-`site/CNAME` already contains `arte-via.uk`. Still to do:
-
-1. At the registrar, point DNS at GitHub — four `A` records for the apex, or an
-   `ALIAS`/`ANAME` if the registrar supports it, plus a `CNAME` on `www`. Take
-   the current IPs from GitHub's own docs rather than from memory.
-2. Settings → Pages → Custom domain, then tick **Enforce HTTPS** once the
-   certificate is issued.
-
-Because every path is relative, moving off the subpath needs no HTML changes.
+**When a change looks like it hasn't deployed**, add `?v=2` to the URL before
+assuming the build failed. It has been a stale cache every time so far.
 
 ---
 
@@ -124,8 +105,9 @@ previous state.
 ## Known gaps
 
 - No meta description or Open Graph tags, so a shared link previews as a bare URL
-  with no card. Needs absolute `arte-via.uk` URLs, so DNS comes first.
+  with no card.
+- `privacy.html` and `terms.html` name **Shiyu Zheng** as the legal operator
+  while the rest of the site reads **Alina Zheng**. Deliberate — the contracting
+  party has to be legally identifiable — but undecided.
 - The nav wordmark is a placeholder, not a logo.
 - No 404 page, no analytics, no link checking or HTML validation in CI.
-- Some dead CSS from removed sections — `.beliefs`, `.facts`, several `.pkg-`
-  rules. Worth one pass before this stylesheet forks to a second site.
