@@ -6,12 +6,26 @@
 
 <!-- TO PUBLISH A POST
      1. Copy this file. Name it after the URL you want: rider-basics.html
-     2. Fill in the four places marked TITLE, DATE, STANDFIRST and the body.
+     2. Fill in every place marked TITLE, DATE, SUMMARY, STANDFIRST, URL-SLUG
+        and the body. TITLE and SUMMARY each appear more than once.
      3. Add a <li class="post-item"> to the list in blog.html, newest first.
-     4. Delete the .post-empty block in blog.html once this is the first one.
-     Nothing else needs touching — the stylesheet already knows about .doc. -->
+     4. Add the post to sitemap.xml.
+     Nothing else needs touching — the stylesheet already knows about .doc.
+     SUMMARY is what shows when the link is shared, so it is not optional;
+     without the block below a shared post previews as a bare URL. -->
 
 <title>TITLE — Arts Operations Partner</title>
+<meta name="description" content="SUMMARY">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ArteVia">
+<meta property="og:url" content="https://arte-via.uk/URL-SLUG.html">
+<meta property="og:title" content="TITLE">
+<meta property="og:description" content="SUMMARY">
+<meta property="og:image" content="https://arte-via.uk/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
