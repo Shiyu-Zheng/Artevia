@@ -759,6 +759,12 @@ body.page-blog{--measure:860px;}
 }
 .post-end{margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--line);}
 
+/* .doc a underlines prose links, and at 0-1-1 it out-specifies .more (0-1-0),
+   overriding its text-decoration:none. A .more inside .doc then drew the prose
+   underline AND its own border — two lines, 6px apart. Prose links underline;
+   call-to-action links keep their border and nothing else. */
+.doc .more{text-decoration:none;}
+
 
 /* =============================================================
    9c · Enquiry form
