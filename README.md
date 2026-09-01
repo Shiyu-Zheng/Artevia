@@ -13,19 +13,25 @@ privacy policy says so, so keep it true.
 ```
 site/                     ← the only thing published
   index.html              homepage — everything except the blog and the form
-  blog.html               "Coming soon" — no posts exist
+  blog.html               index of posts
   enquiry.html            contact form, posts to Formspree as plain HTML
   privacy.html
   terms.html
   post-template.html      copy, rename, fill in
+  workflow-for-musicians.html   first post, from post-template.html
   site.css                all styling, every page
   site.js                 all behaviour, every page
   fonts/                  Marcellus + Jost, woff2, SIL OFL
   logos/                  client logos
   portrait.jpg
+  og.png                  1200×630 share image
   favicon.svg             single Marcellus A, olive on sand
   favicon-32.png
+  favicon-96.png
+  favicon.ico
   apple-touch-icon.png
+  sitemap.xml             every page, and every post
+  robots.txt
   CNAME                   arte-via.uk
   .nojekyll               stops GitHub running Jekyll over it
 
@@ -51,23 +57,19 @@ Page differences are a class on `<body>`, not a separate file.
 `site.js` guards each feature by checking its markup exists, so the same file is
 safe everywhere. A page without a hamburger just skips that block.
 
-### Two rules that will bite you
+### Two standing rules
 
-- **Paths stay relative.** The site is served from a subpath until DNS moves it,
-  so a leading `/` on any `href` or `src` breaks it.
+- **Paths stay relative.** No leading `/` on any `href` or `src`.
 - **Links never wrap.** Any hyperlink that is a short phrase or a call to action
   gets `white-space:nowrap`. There's a standing rule block near the top of
   `site.css`.
 
 ### Two pieces of CSS that size themselves
 
-Don't replace either with a fixed number — both were fixed numbers once and both
-were wrong within a day.
-
 - **The portrait** in the About section has no aspect ratio in the two-column
   layout. It stretches to the height of the text beside it, so editing a
   paragraph in or out keeps the columns level. Only the width is set.
-- **The pull quote** is capped at 38ch, inside a window about 3ch wide, so the
+- **The pull quote** is capped at 38ch inside a window about 3ch wider, so the
   two sentences get a line each. Re-measure if the wording changes.
 
 ---
@@ -85,29 +87,20 @@ records.
 `site/CNAME` is present but ignored, because publishing happens through a
 workflow rather than from a branch. The domain is set in Settings → Pages.
 
-**When a change looks like it hasn't deployed**, add `?v=2` to the URL before
-assuming the build failed. It has been a stale cache every time so far.
-
 ---
 
 ## Working on it
 
 Open `site/index.html` in a browser. That's the whole workflow.
 
-**When a change looks like it didn't apply, it's the CSS cache.** Private window,
-or disable cache in devtools.
-
 **Edit in place.** No versioned filenames, no dated backups — git holds every
 previous state.
 
+**When a change looks like it hasn't applied, it's the cache.** Add `?v=2` to the
+URL, or use a private window with devtools cache disabled, before assuming the
+build failed. It has been a stale cache every time so far.
+
 ---
 
-## Known gaps
-
-- No meta description or Open Graph tags, so a shared link previews as a bare URL
-  with no card.
-- `privacy.html` and `terms.html` name **Shiyu Zheng** as the legal operator
-  while the rest of the site reads **Alina Zheng**. Deliberate — the contracting
-  party has to be legally identifiable — but undecided.
-- The nav wordmark is a placeholder, not a logo.
-- No 404 page, no analytics, no link checking or HTML validation in CI.
+Known gaps, decisions and the reasoning behind them are kept privately in
+`~/Desktop/ArteVia`, not in this repo.
