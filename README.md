@@ -57,12 +57,17 @@ Page differences are a class on `<body>`, not a separate file.
 `site.js` guards each feature by checking its markup exists, so the same file is
 safe everywhere. A page without a hamburger just skips that block.
 
-### Two standing rules
+### Three standing rules
 
 - **Paths stay relative.** No leading `/` on any `href` or `src`.
 - **Links never wrap.** Any hyperlink that is a short phrase or a call to action
   gets `white-space:nowrap`. There's a standing rule block near the top of
   `site.css`.
+- **Every page carries a self-referencing canonical.** `index.html` points at
+  `https://arte-via.uk/`, every other page at its own URL. Without it Google
+  treats `arte-via.uk/index.html` as a second, competing copy of the homepage.
+  A new page also needs a `<loc>` in `sitemap.xml` and a `<lastmod>` of the day
+  it changed — that date is what brings Google back to re-read it.
 
 ### Two pieces of CSS that size themselves
 
